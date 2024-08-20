@@ -1,1 +1,66 @@
+# Java 관련 파일들
+*.class
+*.war
+*.ear
+
+# 이클립스 관련 파일들
+/.settings/
+/.project
+.classpath
+
+# Maven 관련 파일들
+/target/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logging.properties
+
+# IntelliJ IDEA 관련 파일들 (이클립스를 주로 사용하지만 IDEA로 열릴 수 있는 경우)
+/.idea/
+/*.iml
+/*.iws
+/out/
+
+# Mac OS 시스템 파일들
+.DS_Store
+
+# 로그 파일
+*.log
+
+# 빌드 결과물
 /build/
+/dist/
+
+# 환경 설정 파일들
+*.env
+*.local
+*.test
+*.prod
+
+# 임시 파일들
+*.tmp
+*.bak
+*.swp
+
+# Tomcat 관련 파일들
+/.metadata/
+/Servers/
+/tmp/
+/logs/
+/work/
+
+# Node.js 관련 파일들 (만약 Node.js가 사용될 경우)
+node_modules/
+/npm-debug.log
+
+# 기타 자주 사용되는 것들
+/.cache
+/.temp
+.vscode/
+*.log
+
+# IDE config directories
+.idea/
+*.iml
+*.ipr
+*.iws
