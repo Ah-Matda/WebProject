@@ -1,0 +1,113 @@
+html,
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  overflow: hidden;
+}
+
+.op-art {
+  position: relative;
+  width: 100vmax;
+  height: 100vmax;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 0.5vmax solid white;
+  box-sizing: border-box;
+  animation: organic-movement 40s linear infinite;
+}
+
+.circle-1 {
+  width: 100%;
+  height: 100%;
+  animation-duration: 40s;
+}
+
+.circle-2 {
+  width: 90%;
+  height: 90%;
+  animation-duration: 20s;
+  animation-direction: reverse;
+}
+
+.circle-3 {
+  width: 80%;
+  height: 80%;
+  animation-duration: 10s;
+}
+
+.circle-4 {
+  width: 70%;
+  height: 70%;
+  animation-duration: 8s;
+  animation-direction: reverse;
+}
+
+.circle-5 {
+  width: 60%;
+  height: 60%;
+  animation-duration: 5s;
+}
+
+.circle-6 {
+  width: 50%;
+  height: 50%;
+  animation-duration: 40s;
+  animation-direction: reverse;
+}
+
+.circle-7 {
+  width: 40%;
+  height: 40%;
+  animation-duration: 20s;
+}
+
+.circle-8 {
+  width: 30%;
+  height: 30%;
+  animation-duration: 10s;
+  animation-direction: reverse;
+}
+
+.circle-9 {
+  width: 20%;
+  height: 20%;
+  animation-duration: 8s;
+}
+
+.circle-10 {
+  width: 10%;
+  height: 10%;
+  animation-duration: 5s;
+  animation-direction: reverse;
+}
+
+@keyframes organic-movement {
+  0% {
+    transform: translate(calc(-10% + 10vmax * cos(0deg)), calc(-10% + 10vmax * sin(0deg))) rotate(0deg);
+  }
+  25% {
+    transform: translate(calc(-10% + 10vmax * cos(90deg)), calc(-10% + 10vmax * sin(90deg))) rotate(90deg);
+  }
+  50% {
+    transform: translate(calc(-10% + 10vmax * cos(180deg)), calc(-10% + 10vmax * sin(180deg))) rotate(180deg);
+  }
+  75% {
+    transform: translate(calc(-10% + 10vmax * cos(270deg)), calc(-10% + 10vmax * sin(270deg))) rotate(270deg);
+  }
+  100% {
+    transform: translate(calc(-10% + 10vmax * cos(360deg)), calc(-10% + 10vmax * sin(360deg))) rotate(360deg);
+  }
+}
