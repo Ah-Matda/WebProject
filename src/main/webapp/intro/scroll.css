@@ -1,4 +1,5 @@
 html,
+
 body {
   margin: 0;
 }
@@ -12,18 +13,90 @@ html {
 body {
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     180deg,
  	#FF6D00 0%,
     #FFA726 25%,
-    #FFB74D 50%,
+    #FFB74D 50%, 
     #FFCC80 100%
-    
-    /* #2afadf 40%,
-    #f9fea5 100% */
-  );
+ ); */
   background-repeat: no-repeat;
 }
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 75px;
+  padding: 1rem;
+  color: #275efe;
+  background: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+header h2 {
+  font-size: 2rem; /* 기본 폰트 크기 설정 */
+}
+
+header nav span a {
+  text-decoration: none;
+  color: #275efe;
+  font-size: 1.2rem; /* 기본 링크 폰트 크기 설정 */
+  margin: 0 1rem; /* 메뉴 간의 간격 */
+}
+
+@media (max-width: 768px) {
+  header h2 {
+    font-size: 1.5rem; /* 작은 화면에서는 제목 크기 축소 */
+  }
+
+  header nav span a {
+    font-size: 1rem; /* 작은 화면에서는 링크 크기 축소 */
+    margin: 0 0.5rem; /* 메뉴 간의 간격 줄이기 */
+  }
+}
+
+@media (min-width: 1024px) {
+  header h2 {
+    font-size: 2.5rem; /* 큰 화면에서는 제목 크기 확대 */
+  }
+
+  header nav span a {
+    font-size: 1.5rem; /* 큰 화면에서는 링크 크기 확대 */
+    margin: 0 1.5rem; /* 메뉴 간의 간격 늘리기 */
+  }
+}
+
+.button {
+	position: absolute;
+	width: 30%;
+	height: auto;
+	top: 50%;
+	background-color: #275efe;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	padding: 15px;
+	min-height: 30px;
+	min-width: 120px;
+}
+
+.button:hover {
+      background-color:#002ead;
+      transition: 1.0s;
+  }
+  
+
+.button:active {
+    background-color: #FF6D00;
+}
+
 
 *,
 *:before,
@@ -126,6 +199,8 @@ p:last-child {
   margin: 0 auto;
   padding: 10rem 2rem;
 }
+
+
 
 section {
   margin-bottom: 10rem;
