@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, inital-scale=1">
+<title>Daily List</title>
+<style>
+body {
+	font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+</style>
+<link rel="stylesheet" href="../css/dailyList_style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="todo-app">
+			<h2>
+				To-Do List <img src="../images/todolist-icon.png">
+			</h2>
+			<div class="row">
+				<input type="text" id="input-box" placeholder="입력해주세요.">
+				<button onclick="addTask()">추가하기</button>
+			</div>
+
+			<ul id="list-container">
+			</ul>
+		</div>
+	</div>
+	<script src="../js/dailyList_script.js"></script>
+</body>
+</html>
