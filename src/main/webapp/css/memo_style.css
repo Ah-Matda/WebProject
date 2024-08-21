@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	margin: 0;
+}
+
+#app {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 200px);
+	padding: 24px;
+	gap: 24px;
+}
+
+.note {
+	height: 200px;
+	box-sizing: border-box;
+	padding: 30px;
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+	resize: none;
+	font-family: 'NEXON Lv1 Gothic OTF', sans-serif !important;
+}
+
+.note textarea {
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	font-size: 16px;
+	padding: 5px;
+	color: black;
+}
+
+.add-note {
+	height: 200px;
+	border: none;
+	outline: none;
+	background: rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	font-size: 120px;
+	color: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.add-note:hover {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+.delete-note {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	font-size: 20px;
+	margin-left: 8px;
+	color: red;
+}
+
+.delete-note:hover {
+	color: darkred;
+}
