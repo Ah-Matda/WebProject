@@ -1,41 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
-    <meta charset='utf-8' />
-   
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-<script src="../js/calendar.js"></script>
+  <meta charset='utf-8' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+  <script src="../js/calendar.js"></script>
  <link rel="stylesheet" href="../css/sideBar.css">
- <!-- <link rel="stylesheet" href="../css/calendar.css">  -->
- 
+  <script src="../js/darkMode.js"></script>
   </head>
   <body>
-  <aside class="sidebar">
+  
+  <!-- 사이드 바 시작 -->
+ <aside class="sidebar">
+        <button class="toggle-button">
+        <!-- 토글 아이콘 -->
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  			<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+		</svg>
+        </button>
         <div class="menu">
             <h2>Menu</h2>
             <ul>
                 <li>
-                    <a href="#"><i class="fa fa-calendar"></i> Calendar</a>
+                    <a href="calendar.html"><i class="fa fa-calendar"></i> <span>Calendar</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-tasks"></i> Upcoming</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-inbox"></i> Today</a>
+                    <a href="dailyList.html"><i class="fa fa-tasks"></i> <span>TodoList</span></a>
                 </li>
             </ul>
-        </div>
-        <div class="tags">
-            <h3>Tags</h3>
-            <ul>
-                <li><a href="#"><i class="fa fa-tag"></i> Tag 1</a></li>
-                <li><a href="#"><i class="fa fa-tag"></i> Tag 2</a></li>
-                <li><a href="#"><i class="fa fa-tag"></i> Tag 3</a></li>
-            </ul>
+            <!-- 다크모드 토글 on/off -->
+            <div class="dark-mode-toggle">
+			    <label class="switch">
+			        <input type="checkbox" id="toggleDarkMode">
+			        <span class="slider round"></span>
+			    </label>
+			</div>
         </div>
     </aside>
-     <div class="calendar-container">
-    <div id='calendar'></div>
+    <!-- 사이드 바 끝 -->
+    <div class="main-content">
+        <div class="header">
+            <div class="calendar-navigation">
+                <button id="prev">Prev</button>
+                <button id="next">Next</button>
+                <button id="today">Today</button>
+            </div>
+            <h1 id="calendar-title">Calendar</h1>
+            <div class="view-buttons">
+                <button id="dayGridMonth">Month</button>
+                <button id="timeGridWeek">Week</button>
+                <button id="timeGridDay">Day</button>
+            </div>
+        </div>
+        <div class="calendar-container">
+            <div id="calendar"></div>
+      
     </div>
-  </body>
+    </div>
+    </body>
 </html>
