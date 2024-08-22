@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://unpkg.com/typeit@8.3.3/dist/index.umd.js"></script>
+<script src="https://unpkg.com/scroll-out/dist/scroll-out.min.js"></script>
+<link rel="stylesheet" href="scroll.css" />
+
+<title>Ah-Matda(아맞다)</title>
+</head>
+
+<body>
+<header>
+  <h2>Ah-Matda</h2>
+  <nav>
+    <span><a href ="#section1">기능소개</a></span>
+    <span><a href ="#section2">캐릭터소개</a></span>
+    <span><a href ="#section3">시작하기</a></span>
+  </nav>
+</header>
+
+	<div class="site-wrap" >
+		<section data-scroll>
+			<h1 class="title">ToDo-list📋</h1>
+			<h1 class="title">아!!맞다🫢</h1>
+
+		</section>
+	</div>
+
+	<div class="site-wrap" id="section1">
+		<section data-scroll>
+			<h1 class="title">기능소개</h1>
+
+
+			<div class="second-block">
+				<div class="second-block-eachblock">
+					<img class="second-picture" src="americano.jpg"
+						alt="Grapefruit slice atop a pile of other slices">
+					<div class="second-block-ment">투데이</div>
+				</div>
+				<div class="second-block-eachblock">
+					<img class="second-picture" src="americano.jpg"
+						alt="Grapefruit slice atop a pile of other slices">
+					<div class="second-block-ment">캘린더</div>
+				</div>
+				<div class="second-block-eachblock">
+					<img class="second-picture" src="americano.jpg"
+						alt="Grapefruit slice atop a pile of other slices">
+					<div class="second-block-ment">메모</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="site-wrap" id="section2">
+		<section data-scroll>
+			<div class="third-block">
+				<img class="third-block-picture" src="intro_game_imo.png"
+					alt="투두 리스트 달성시 이모티콘">
+			</div>
+			<h2 class="title">✅리스트를달성하여✅</h2>
+			<h2 class="title">👾캐릭터를키워보세요👾</h2>
+
+		</section>
+	</div>
+
+	<div class="site-wrap" id="section3">
+		<section data-scroll>
+			<div class="third-block">
+				<button type="button" class="button">시작하기</button>
+			</div>
+		</section>
+	</div>
+
+	<script>
+      ScrollOut({
+        onShown: (element) => {
+          new TypeIt(element.querySelector('.title'), {
+            startDelay: 500,
+            cursor: false,
+          })
+            .pause(2000)
+            .go();
+        },
+      });
+      
+      
+      const btn = document.querySelector(".button");
+
+      btn.addEventListener("click", clickHandler);
+
+      function clickHandler(){
+          window.location.href = "../html/memo.html";
+      }
+      
+      
+      window.addEventListener('scroll', function() {
+    	    const header = document.querySelector('header');
+    	    const scrollPosition = window.scrollY;
+
+    	    // 스크롤 위치에 따라 투명도 조정
+    	    if (scrollPosition > 0) {
+    	        header.style.opacity = Math.max(0.5, 1 - scrollPosition / 200); // 최소 0.5까지 투명도 감소
+    	    } else {
+    	        header.style.opacity = 1; // 스크롤 위치가 맨 위일 때는 완전히 불투명
+    	    }
+    	});
+
+    </script>
+</body>
+</html>

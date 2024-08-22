@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goal</title>
+<link rel="stylesheet" href="../css/goal_style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>목표 달성 시스템</h1>
+
+		<!-- 캐릭터와 레벨/경험치바 섹션 -->
+		<div class="character-section">
+			<div class="character">
+				<img id="characterImage" src="../images/character/level_1.png"
+					alt="Character">
+			</div>
+			<div class="stats">
+				<div id="levelDisplay">레벨: 1</div>
+				<div class="exp-bar">
+					<div id="expFill"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 목표 설정 섹션 -->
+		<div class="goal-section">
+			<h2>목표 설정</h2>
+			<input type="text" id="goalInput" placeholder="목표를 입력하세요">
+			<button id="addGoalButton">목표 추가</button>
+		</div>
+
+		<!-- 목표 목록 섹션 -->
+		<div class="goals">
+			<h2>목표 목록</h2>
+			<ul id="goalList"></ul>
+		</div>
+
+		<!-- 상태 메시지 섹션 -->
+		<div class="status">
+			<h2>상태</h2>
+			<p id="message"></p>
+		</div>
+	</div>
+	<script src="../js/goal_script.js"></script>
+</body>
+</html>
