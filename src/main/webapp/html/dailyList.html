@@ -18,7 +18,8 @@ body {
 				To-Do List <img src="../images/todolist-icon.png">
 			</h2>
 			<div class="row">
-				<input type="text" id="input-box" placeholder="입력해주세요.">
+				<input type="date" id="date-picker" /> <input type="text"
+					id="input-box" placeholder="입력해주세요.">
 				<button onclick="addTask()">추가하기</button>
 			</div>
 
@@ -27,5 +28,15 @@ body {
 		</div>
 	</div>
 	<script src="../js/dailyList_script.js"></script>
+	<script>
+		function toggleVisibility() {
+			const dateItem = document.getElementById('dateItem');
+			if (dateItem.hasAttribute('hidden')) {
+				dateItem.removeAttribute('hidden');
+			} else {
+				dateItem.setAttribute('hidden', '');
+			}
+		}
+	</script>
 </body>
 </html>
