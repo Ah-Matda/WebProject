@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>메모 앱</title>
+<link rel="stylesheet" href="../css/sideBar.css">
+<script src="../js/darkMode.js"></script>
 <style>
 body {
 	font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
@@ -11,9 +13,65 @@ body {
 <link rel="stylesheet" href="../css/memo_style.css">
 </head>
 <body>
-	<div id="app">
-		<button class="add-note" type="button">+</button>
-	</div>
+	<aside class="sidebar">
+		<button class="toggle-button">
+			<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+				fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round"
+					stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+            </svg>
+		</button>
+		<div class="menu">
+			<h2>Menu</h2>
+			<ul>
+				<li><a href="calendar.html"> <svg
+							class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="2"
+								d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+    </svg> <span> Calendar</span>
+				</a></li>
+
+				<li><a href="dailyList.html"> <svg
+							class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="2"
+								d="M12 6h8m-8 6h8m-8 6h8M4 16a2 2 0 1 1 3.321 1.5L4 20h5M4 5l2-1v6m-2 0h4" />
+    </svg> <span>TodoList</span>
+				</a></li>
+
+				<li><a href="memo.html"> <svg
+							class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							fill="currentColor" viewBox="0 0 24 24">
+      <path fill-rule="evenodd"
+								d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
+								clip-rule="evenodd" />
+    </svg> <span>Memo</span>
+				</a></li>
+			</ul>
+			<div class="dark-mode-toggle">
+				<label class="switch"> <input type="checkbox"
+					id="toggleDarkMode"> <span class="slider round"></span>
+				</label>
+			</div>
+		</div>
+	</aside>
+
+	<main id="main-content">
+		<div class="header">
+			<h1>Sticky Wall</h1>
+			<hr class="separator">
+		</div>
+		<div id="app">
+			<button class="add-note" type="button">+</button>
+		</div>
+	</main>
 	<script src="../js/memo_script.js"></script>
 </body>
 </html>

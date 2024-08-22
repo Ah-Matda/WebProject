@@ -16,9 +16,7 @@
 }
 
 body {
-	background-color: LightSlateGray;
-	margin: 0;
-	padding: 0;
+	font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
 }
 
 .container {
@@ -26,8 +24,9 @@ body {
 	min-height: 100vh;
 	padding: 10px;
 	display: flex;
-	justify-content: center;
+	flex-direction: column; /* 수직 방향으로 요소들을 배치 */
 	align-items: center;
+	justify-content: flex-start; /* 상단 정렬 */
 }
 
 .todo-app {
@@ -37,6 +36,7 @@ body {
 	padding: 40px 30px 70px;
 	border-radius: 10px;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	margin-top: 20px; /* 상단 여백 추가 */
 }
 
 .todo-app h2 {
@@ -53,14 +53,14 @@ body {
 
 .row {
 	display: flex;
-	flex-wrap: wrap; /* 이 부분을 추가해 작은 화면에서 자동으로 요소가 다음 줄로 내려가도록 설정 */
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
 	background: #edeef0;
 	border-radius: 30px;
 	padding: 10px;
 	margin-bottom: 30px;
-	gap: 10px; /* 요소들 간의 여백 추가 */
+	gap: 10px;
 }
 
 input[type="text"], input[type="date"] {
@@ -71,10 +71,10 @@ input[type="text"], input[type="date"] {
 	padding: 10px;
 	font-size: 14px;
 	font-family: 'NEXON Lv1 Gothic OTF';
-	min-width: 150px; /* 최소 너비 설정 */
+	min-width: 150px;
 }
 
-button {
+#add-task-button {
 	font-family: 'NEXON Lv1 Gothic OTF';
 	border: none;
 	outline: none;
@@ -84,16 +84,16 @@ button {
 	font-size: 14px;
 	cursor: pointer;
 	border-radius: 40px;
-	min-width: 120px; /* 버튼의 최소 너비를 설정하여 글자가 깨지지 않도록 조정 */
+	min-width: 120px;
 	text-align: center;
 }
 
-ul {
+#task-list {
 	list-style: none;
 	padding: 0;
 }
 
-ul li {
+#task-list li {
 	background-color: white;
 	font-size: 14px;
 	padding: 12px 8px 12px 50px;
@@ -105,7 +105,7 @@ ul li {
 	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-ul li::before {
+#task-list li::before {
 	content: '';
 	position: absolute;
 	height: 35px;
@@ -117,16 +117,16 @@ ul li::before {
 	left: 8px;
 }
 
-ul li.checked {
+#task-list li.checked {
 	color: #555;
 	text-decoration: line-through;
 }
 
-ul li.checked::before {
+#task-list li.checked::before {
 	background-image: url(../images/checked.png);
 }
 
-ul li span {
+#task-list li span {
 	position: absolute;
 	right: 10px;
 	top: 50%;
@@ -141,7 +141,7 @@ ul li span {
 	background-color: white;
 }
 
-ul li span:hover {
+#task-list li span:hover {
 	background: #edeef0;
 }
 
@@ -157,27 +157,27 @@ ul li span:hover {
 		font-size: 12px;
 		padding: 8px;
 	}
-	button {
+	#add-task-button {
 		padding: 10px 20px;
 		font-size: 12px;
-		min-width: 100px; /* 작은 화면에서도 글자가 깨지지 않도록 최소 너비 설정 */
+		min-width: 100px;
 	}
-	ul li {
+	#task-list li {
 		font-size: 12px;
 		padding: 10px 8px 10px 45px;
 	}
-	ul li::before {
+	#task-list li::before {
 		height: 30px;
 		width: 30px;
 		top: 8px;
 		left: 5px;
 	}
-	ul li span {
+	#task-list li span {
 		width: 35px;
 		height: 35px;
 		font-size: 18px;
 	}
-	ul li .date {
+	#task-list li .date {
 		font-size: 14px;
 		color: #777;
 		display: block;
@@ -185,23 +185,21 @@ ul li span:hover {
 		margin-right: 50px;
 		background-color: transparent;
 	}
-
-	/* iPhone SE와 같은 소형 화면 대응 */
 	@media ( max-width : 375px) {
 		.todo-app {
 			padding: 20px 10px 40px;
 			margin: 20px;
 		}
 		.row {
-			flex-direction: column; /* 작은 화면에서는 입력 필드와 버튼을 세로로 배치 */
+			flex-direction: column;
 			gap: 15px;
 		}
-		button {
+		#add-task-button {
 			width: 100%;
-			padding: 12px; /* 버튼을 전체 너비로 설정하여 작은 화면에서 벗어나지 않도록 함 */
+			padding: 12px;
 		}
 		input[type="text"], input[type="date"] {
-			width: 100%; /* 입력 필드도 전체 너비로 설정 */
+			width: 100%;
 		}
 	}
 }

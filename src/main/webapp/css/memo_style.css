@@ -8,20 +8,85 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
-body {
+/* 전체 HTML과 body 설정 */
+html, body {
 	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
 }
 
+/* 사이드바 스타일 */
+.sidebar {
+	width: 250px; /* 사이드바의 너비 설정 */
+	background-color: #f4f4f4;
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 메인 콘텐츠 영역 스타일 */
+#main-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	background-color: #f9f9f9;
+	padding: 24px;
+}
+
+/* 제목과 구분선 스타일 */
+.header {
+	margin-bottom: 24px;
+}
+
+.header h1 {
+	font-size: 2em;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.separator {
+	border: 0;
+	border-top: 2px solid #ccc;
+	margin: 16px 0;
+	width: 100%;
+}
+
+/* 메모 앱 스타일 */
 #app {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 200px);
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	padding: 24px;
 	gap: 24px;
+	width: 100%; /* 전체 화면 너비 사용 */
+	max-width: 100%; /* 최대 너비를 화면 너비로 제한 */
+	box-sizing: border-box;
+	overflow-y: auto; /* 내용이 넘칠 경우 스크롤 추가 */
+	border: 2px solid rgba(0, 0, 0, 0.1); /* 연한 네모 선 추가 */
+	border-radius: 10px; /* 모서리 둥글게 */
+	background-color: #fff; /* 배경색 설정 */
 }
 
+/* 메모 앱 스타일 */
+#app {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	/* 너비를 300px로 조정 */
+	padding: 24px;
+	gap: 32px; /* 메모와 버튼 사이의 간격을 늘림 (기존 24px에서 32px로 증가) */
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	overflow-y: auto;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+/* 기타 메모 관련 스타일 */
 .note {
-	height: 200px;
+	height: 300px;
+	width: 300px;
 	box-sizing: border-box;
 	padding: 30px;
 	border: none;
@@ -38,21 +103,25 @@ body {
 	background-color: transparent;
 	border: none;
 	outline: none;
-	font-size: 16px;
-	padding: 5px;
+	font-size: 18px;
+	padding: 10px;
 	color: black;
 }
 
 .add-note {
-	height: 200px;
+	height: 300px;
+	width: 300px;
 	border: none;
 	outline: none;
 	background: rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
-	font-size: 120px;
+	font-size: 150px;
 	color: rgba(0, 0, 0, 0.5);
 	cursor: pointer;
 	transition: background 0.2s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .add-note:hover {
@@ -63,7 +132,7 @@ body {
 	background: transparent;
 	border: none;
 	cursor: pointer;
-	font-size: 20px;
+	font-size: 25px;
 	margin-left: 8px;
 	color: red;
 }

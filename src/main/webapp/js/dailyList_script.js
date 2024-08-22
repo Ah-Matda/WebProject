@@ -1,6 +1,11 @@
 const inputBox = document.getElementById("input-box");
-const listContainer = document.getElementById("list-container");
+const listContainer = document.getElementById("task-list");
 const datePicker = document.getElementById("date-picker");
+
+// 필요한 요소가 제대로 로드되었는지 확인하는 함수
+function isElementValid(element) {
+	return element !== null;
+}
 
 // Local Storage에서 저장된 할 일을 불러오는 함수
 function loadTasks() {
@@ -21,6 +26,11 @@ let tasks = loadTasks(); // 페이지 로드 시 저장된 할 일을 불러옴
 
 // 할 일 추가하는 기능
 function addTask() {
+	if (!isElementValid(inputBox) || !isElementValid(datePicker)) {
+		console.error("필요한 요소가 존재하지 않습니다.");
+		return;
+	}
+
 	if (inputBox.value.trim() === '') {
 		alert("입력 후 추가해주세요.");
 		return;
@@ -48,6 +58,11 @@ function addTask() {
 
 // 할 일 렌더링
 function renderTasks() {
+	if (!isElementValid(listContainer)) {
+		console.error("할 일 목록을 표시할 요소가 존재하지 않습니다.");
+		return;
+	}
+
 	listContainer.innerHTML = ''; // 기존 내용 초기화
 	tasks.forEach((taskObj, index) => {
 		let li = document.createElement("li");
