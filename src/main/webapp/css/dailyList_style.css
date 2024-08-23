@@ -19,7 +19,7 @@ body {
 	font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
 }
 
-.container {
+.todo-app-container {
 	width: 100%;
 	min-height: 100vh;
 	padding: 10px;
