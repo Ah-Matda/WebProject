@@ -118,7 +118,7 @@ function startGame() {
 
 	alert("점수:" + score + "를 획득했습니다.");
 	if (score !== 0) {
-		
+
 		gameEndupdate();
 	}
 }
