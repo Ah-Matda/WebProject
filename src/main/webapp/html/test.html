@@ -1,260 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3:7 Layout</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-	rel="stylesheet">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3:7 Layout</title>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js" defer></script>
+    <script src="../js/calendar.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+/* 공통 스타일 */
 body {
-	background-color: #e5e7eb; /* 회색 배경 */
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
+    background-color: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 10px 0; /* 위아래 여백 추가 */
+    overflow: hidden; /* 전체 스크롤을 방지 */
 }
 
 .container {
-	display: flex;
-	width: 80%;
-	height: 80%;
-	background-color: #ffffff; /* 하얀색 박스 */
-	border-radius: 20px; /* 둥근 모서리 */
-	padding: 20px;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row; /* 가로 배치 */
+    width: 90%;
+    max-width: 1200px; /* 최대 너비를 설정하여 화면이 넓을 때 너무 커지지 않도록 제한 */
+    height: calc(100vh - 20px); /* 화면 높이에서 여백을 제외한 높이로 설정 */
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: auto; /* 중앙 정렬 */
 }
 
 .sidebar {
-	width: 30%;
-	background-color: #f3f4f6;
-	border-radius: 20px;
-	padding: 20px;
+    width: 30%; /* 사이드바를 전체의 30%로 설정 */
+    max-width: 250px; /* 사이드바의 최대 너비를 설정 */
+    background-color: #f3f4f6;
+    border-radius: 20px;
+    padding: 20px;
 }
 
 .content {
-	width: 70%;
-	padding: 20px;
-	overflow-y: auto;
-}
-/* SideBar의 기본 스타일 */
-.flex {
-	display: flex;
+    width: 70%; /* 콘텐츠를 전체의 70%로 설정 */
+    padding: 20px;
+    overflow-y: hidden; /* 콘텐츠 내부의 스크롤 방지 */
+    display: flex;
+    flex-direction: column;
 }
 
-.items-center {
-	align-items: center;
+.calendar-container {
+    flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.bg-gray-100 {
-	background-color: #f3f4f6;
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .bg-gray-100 {
+            background-color: #f3f4f6;
+        }
+
+        .text-gray-700 {
+            color: #4b5563;
+        }
+
+        .rounded-lg {
+            border-radius: 12px;
+        }
+
+        .shadow-lg {
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .w-48 {
+            width: 12rem;
+        }
+
+        .h-12 {
+            height: 3rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+
+        .my-1 {
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .hover\:bg-gray-200:hover {
+            background-color: #e5e7eb;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .ml-2 {
+            margin-left: 0.5rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .border-t {
+            border-top-width: 1px;
+        }
+
+        .border-gray-300 {
+            border-color: #d1d5db;
+        }
+
+        .mt-auto {
+            margin-top: auto;
+        }
+
+        /* 추가된 스타일 */
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .title-nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .nav-button, .view-button {
+            background-color: #f3f4f6;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #4b5563;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover, .view-button:hover {
+            background-color: #e5e7eb;
+        }
+
+        .view-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+        }
+
+        #calendar-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4b5563;
+            margin: 0 20px;
+        }
+
+        #today {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #today:hover {
+            background-color: #0056b3;
+        }
+
+/* 모바일 환경에서의 스타일 조정 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: row;
+        width: 100%;
+        height: calc(100vh - 20px); /* 컨테이너가 화면에 꽉 차도록 확장 */
+        margin: 0;
+        padding: 0;
+        align-items: stretch; /* 자식 요소들이 부모의 높이를 채우도록 설정 */
+    }
+
+    .sidebar {
+        position: fixed; /* 모바일에서는 사이드바를 고정시켜서 화면에 보이지 않도록 설정 */
+        top: 0;
+        left: -100%; /* 사이드바를 화면 밖으로 숨김 */
+        width: 70%; /* 사이드바의 너비를 화면의 70%로 설정 */
+        height: 100%; /* 사이드바의 높이를 컨테이너에 맞게 확장 */
+        background-color: #f3f4f6;
+        z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
+        transition: left 0.3s ease; /* 애니메이션을 추가하여 슬라이딩 효과 */
+    }
+
+    .sidebar.open {
+        left: 0; /* 'open' 클래스가 추가되면 사이드바가 화면에 나타남 */
+    }
+
+    .content {
+        width: 100%; /* 콘텐츠가 사이드바에 의해 가려지지 않도록 전체 너비 사용 */
+        height: 100%; /* 콘텐츠의 높이를 컨테이너에 맞게 확장 */
+        padding: 20px;
+        overflow-y: hidden; /* 콘텐츠 내부의 스크롤 방지 */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calendar-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-top: -50px; /* 상단 여백을 줄여 버튼과 캘린더가 더 가깝게 위치 */
+    }
+
+    .fc-scrollgrid {
+        margin-top: 30px; /* 캘린더 전체 영역의 상단 마진을 추가 */
+        
+    }
+    
+    .fc .fc-scrollgrid-liquid {
+    	margin : 45px 0px 0px 0px;
+    	height: 530px;
+    }
+
+    .calendar-header {
+        flex-direction: column; /* 버튼들을 아래로 배치 */
+        margin-bottom: 10px; /* 타이틀과 캘린더 사이의 간격을 넓힘 */
+    }
+
+    .title-nav {
+        margin-bottom: 15px; /* 버튼과 타이틀 사이에 여백 추가 */
+    }
+
+    .nav-button, .view-button {
+        margin: 5px; /* 버튼 간격을 위한 여백 추가 */
+    }
+
+    /* 햄버거 메뉴 스타일 */
+    .hamburger-menu {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1100; /* 사이드바보다 위에 위치하도록 설정 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .hamburger-menu div {
+        width: 100%;
+        height: 3px;
+        background-color: #333; /* 메뉴 바 색상 */
+    }
+
+    .fc-daygrid-day-frame {
+        height: auto; /* 날짜 셀의 높이는 자동으로 조정 */
+        font-size: inherit; /* 날짜 텍스트 크기는 상속받음 */
+    }
+    
+    .fc-daygrid-day {
+        padding: 10px; /* 날짜 셀 안의 내용에 패딩 추가 */
+    }
 }
 
-.text-gray-700 {
-	color: #4b5563;
-}
-
-.rounded-lg {
-	border-radius: 12px;
-}
-
-.shadow-lg {
-	box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-.w-full {
-	width: 100%;
-}
-
-.h-full {
-	height: 100%;
-}
-
-.w-48 {
-	width: 12rem;
-}
-
-.h-12 {
-	height: 3rem;
-}
-
-.px-4 {
-	padding-left: 1rem;
-	padding-right: 1rem;
-}
-
-.py-4 {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-}
-
-.px-3 {
-	padding-left: 0.75rem;
-	padding-right: 0.75rem;
-}
-
-.my-1 {
-	margin-top: 0.25rem;
-	margin-bottom: 0.25rem;
-}
-
-.hover\:bg-gray-200:hover {
-	background-color: #e5e7eb;
-}
-
-.font-bold {
-	font-weight: 700;
-}
-
-.ml-2 {
-	margin-left: 0.5rem;
-}
-
-.text-lg {
-	font-size: 1.125rem;
-}
-
-.text-sm {
-	font-size: 0.875rem;
-}
-
-.font-medium {
-	font-weight: 500;
-}
-
-.border-t {
-	border-top-width: 1px;
-}
-
-.border-gray-300 {
-	border-color: #d1d5db;
-}
-
-.mt-auto {
-	margin-top: auto;
-}
-
-@media ( max-width : 768px) {
-	.container {
-		flex-direction: column;
-		width: 90%;
-		height: auto;
-		padding: 10px;
-	}
-	.sidebar {
-		width: 100%;
-		margin-bottom: 20px;
-	}
-	.content {
-		width: 100%;
-	}
-}
-
-@media ( max-width : 600px) {
-	h2 {
-		font-size: 18px;
-	}
-	.container {
-		flex-direction: column;
-		width: 90%;
-		height: auto;
-		padding: 10px;
-	}
-	.sidebar {
-		width: 100%;
-		margin-bottom: 20px;
-	}
-}
-
-@media ( max-width : 375px) {
-	.row {
-		flex-direction: column;
-		gap: 15px;
-	}
-}
-</style>
 </head>
 <body>
-	<div class="container">
-		<!-- Sidebar -->
-		<div
-			class="flex flex-col items-center w-48 h-full bg-gray-100 text-gray-700 rounded-lg shadow-lg">
-			<a class="flex items-center w-full px-4 py-4" href="#"> <svg
-					class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 20 20" fill="currentColor">
-                <path
-						d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-            </svg> <span class="ml-2 text-lg font-bold">아맞다</span>
-			</a>
-			<div class="w-full px-2">
-				<div class="flex flex-col w-full mt-3">
-					<a
-						class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200"
-						href="dailyList.html"> <svg
-							class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-							fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round"
-								stroke-width="2"
-								d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5" />
-    </svg> <span class="ml-2 text-sm font-medium">To-do-list</span>
-					</a> <a
-						class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200"
-						href="calendar.html"> <svg
-							class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-							fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="2"
-								d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
-</svg> <span class="ml-2 text-sm font-medium">Calendar</span>
-					</a> <a
-						class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200"
-						href="memo.html"> <svg class="w-6 h-6 stroke-current"
-							xmlns="http://www.w3.org/2000/svg" fill="none"
-							viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="2"
-								d="M7 8h10M7 12h4m1 9h3a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v12a2 2 0 002 2h3z" />
-                    </svg> <span class="ml-2 text-sm font-medium">Sticky
-							Wall</span>
-					</a> <a
-						class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200"
-						href="goal.html"> <svg class="w-6 h-6 stroke-current"
-							xmlns="http://www.w3.org/2000/svg" fill="none"
-							viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="2"
-								d="M8 9l3 3-3 3m5-6l3 3-3 3" />
-                    </svg> <span class="ml-2 text-sm font-medium">Goal</span></a>
-				</div>
-			</div>
-			<div
-				class="flex flex-col items-center justify-center w-full mt-auto border-t border-gray-300">
-				<a class="flex items-center w-full px-3 py-4" href="#"> <svg
-						class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-						fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd"
-							d="M17 10v1.126c.367.095.714.24 1.032.428l.796-.797 1.415 1.415-.797.796c.188.318.333.665.428 1.032H21v2h-1.126c-.095.367-.24.714-.428 1.032l.797.796-1.415 1.415-.796-.797a3.979 3.979 0 0 1-1.032.428V20h-2v-1.126a3.977 3.977 0 0 1-1.032-.428l-.796.797-1.415-1.415.797-.796A3.975 3.975 0 0 1 12.126 16H11v-2h1.126c.095-.367.24-.714.428-1.032l-.797-.796 1.415-1.415.796.797A3.977 3.977 0 0 1 15 11.126V10h2Zm.406 3.578.016.016c.354.358.574.85.578 1.392v.028a2 2 0 0 1-3.409 1.406l-.01-.012a2 2 0 0 1 2.826-2.83ZM5 8a4 4 0 1 1 7.938.703 7.029 7.029 0 0 0-3.235 3.235A4 4 0 0 1 5 8Zm4.29 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h6.101A6.979 6.979 0 0 1 9 15c0-.695.101-1.366.29-2Z"
-							clip-rule="evenodd" />
-        </svg>&nbsp;Setting
-				</a> <a class="flex items-center w-full px-3 py-4" href="#"> <?xml version="1.0" ?>
-					<svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-						xmlns="http://www.w3.org/2000/svg">
-            <path
-							d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8"
-							stroke="#374151" stroke-linecap="round" stroke-linejoin="round"
-							stroke-width="2" />
-        </svg>&nbsp;Sign out
-				</a>
-			</div>
+    <!-- 햄버거 메뉴 버튼 -->
+    <div class="hamburger-menu" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 
-		</div>
-		<!-- To-Do List Content -->
+    <div class="container">
+        <!-- Sidebar -->
+        <div id="sidebar" class="flex flex-col items-center bg-gray-100 text-gray-700 rounded-lg shadow-lg sidebar">
+            <!-- 사이드바 내용 -->
+            <a class="flex items-center w-full px-4 py-4" href="#">
+                <svg class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z"/>
+                </svg>
+                <span class="ml-2 text-lg font-bold">아맞다</span>
+            </a>
+            <div class="w-full px-2">
+                <div class="flex flex-col w-full mt-3">
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="dailyList.html">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/>
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">To-do-list</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="calendar.html">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Calendar</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="memo.html">
+                        <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 9h3a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v12a2 2 0 002 2h3z"/>
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Sticky Wall</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="goal.html">
+                        <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5-6l3 3-3 3"/>
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Goal</span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-auto border-t border-gray-300">
+                <a class="flex items-center w-full px-3 py-4" href="#">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M17 10v1.126c.367.095.714.24 1.032.428l.796-.797 1.415 1.415-.797.796c.188.318.333.665.428 1.032H21v2h-1.126c-.095.367-.24.714-.428 1.032l.797.796-1.415 1.415-.796-.797a3.979 3.979 0 0 1-1.032.428V20h-2v-1.126a3.977 3.977 0 0 1-1.032-.428l-.796.797-1.415-1.415.797-.796A3.975 3.975 0 0 1 12.126 16H11v-2h1.126c.095-.367.24-.714.428-1.032l-.797-.796 1.415-1.415.796.797A3.977 3.977 0 0 1 15 11.126V10h2Zm.406 3.578.016.016c.354.358.574.85.578 1.392v.028a2 2 0 0 1-3.409 1.406l-.01-.012a2 2 0 0 1 2.826-2.83ZM5 8a4 4 0 1 1 7.938.703 7.029 7.029 0 0 0-3.235 3.235A4 4 0 0 1 5 8Zm4.29 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h6.101A6.979 6.979 0 0 1 9 15c0-.695.101-1.366.29-2Z" clip-rule="evenodd"/>
+                    </svg>&nbsp;Setting
+                </a>
+                <a class="flex items-center w-full px-3 py-4" href="#">
+                    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    </svg>&nbsp;Sign out
+                </a>
+            </div>
+        </div>
 
-	</div>
+        <!-- Content 영역 -->
+        <div class="content">
+            <div class="calendar-header">
+                <button id="today" class="nav-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2" stroke-width="2"></rect>
+                        <path d="M16 2v4M8 2v4m4 3h.01"></path>
+                        <text x="12" y="16" text-anchor="middle" font-size="10" fill="black" dominant-baseline="middle">
+                            <tspan id="today-date"></tspan>
+                        </text>
+                    </svg>
+                </button>
+                <div class="title-nav">
+                    <button id="prev" class="nav-button">&lt;</button>
+                    <h1 id="calendar-title"></h1>
+                    <button id="next" class="nav-button">&gt;</button>
+                </div>
+                <div class="view-buttons">
+                    <button id="dayGridMonth" class="view-button">Month</button>
+                    <button id="timeGridWeek" class="view-button">Week</button>
+                    <button id="timeGridDay" class="view-button">Day</button>
+                </div>
+            </div>
+            <div class="calendar-container">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Content 영역 끝 -->
+
+    <script>
+        // 오늘 날짜를 가져와서 버튼에 표시
+        const todayButton = document.getElementById('today');
+        const todayDate = new Date().getDate();
+        document.getElementById('today-date').textContent = todayDate;
+
+        // 사이드바 토글 기능 추가
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open'); // 'open' 클래스 추가/제거
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullCalendar 레이아웃</title>
+    <link rel="stylesheet" href="../css/sideBar1.css"> <!-- 사이드바 스타일 -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="../js/calendar.js" defer></script> <!-- 캘린더 스크립트 -->
+</head>
+<body>
+    <!-- 전체 컨테이너 시작 -->
+    <div class="container">
+        <!-- 사이드 바 시작 -->
+        <aside class="sidebar">
+            <button class="toggle-button">
+                <!-- 토글 아이콘 -->
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+                </svg>
+            </button>
+            <div class="menu">
+                <h2>Menu</h2>
+                <ul>
+                    <li><a href="calendar.html"><i class="fa fa-calendar"></i> <span>Calendar</span></a></li>
+                    <li><a href="dailyList.html"><i class="fa fa-tasks"></i> <span>TodoList</span></a></li>
+                </ul>
+                <!-- 다크모드 토글 on/off -->
+                <div class="dark-mode-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="toggleDarkMode">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+        <!-- 사이드 바 끝 -->
+
+        <!-- 메인 콘텐츠 시작 -->
+        <div class="main-content">
+            <div class="header">
+                <div class="calendar-navigation">
+                    <button id="prev">Prev</button>
+                    <button id="next">Next</button>
+                    <button id="today">Today</button>
+                </div>
+                <h1 id="calendar-title">Calendar</h1>
+                <div class="view-buttons">
+                    <button id="dayGridMonth">Month</button>
+                    <button id="timeGridWeek">Week</button>
+                    <button id="timeGridDay">Day</button>
+                </div>
+            </div>
+            <div class="calendar-container">
+                <div id="calendar"></div> <!-- FullCalendar가 여기에 렌더링 됩니다. -->
+            </div>
+        </div>
+        <!-- 메인 콘텐츠 끝 -->
+    </div>
+    <!-- 전체 컨테이너 끝 -->
+</body>
+</html>
