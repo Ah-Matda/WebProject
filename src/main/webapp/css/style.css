@@ -1,0 +1,33 @@
+/* style.css */
+.signup-form {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.text-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: n   
+one;
+    border-radius: 5px;
+       
+cursor: pointer;
+}
+
+/* 미디어 쿼리를 이용한 반응형 디자인 예시 */
+@media (max-width: 768px) {
+    .signup-form {
+        width: 100%;
+    }
+}
