@@ -66,7 +66,7 @@ function renderTasks() {
 	listContainer.innerHTML = ''; // 기존 내용 초기화
 	tasks.forEach((taskObj, index) => {
 		let li = document.createElement("li");
-		li.innerHTML = `${taskObj.task} <span class="date" hidden>${taskObj.date}</span>`;
+		li.innerHTML = `${taskObj.task} <span class="date">${taskObj.date}</span>`; // hidden 속성 제거
 		if (taskObj.checked) li.classList.add("checked"); // 체크된 항목 표시
 
 		// 삭제 버튼 만들기
@@ -87,6 +87,7 @@ function renderTasks() {
 		listContainer.appendChild(li);
 	});
 }
+
 
 // 할 일 체크 상태 토글
 function toggleTask(index) {
