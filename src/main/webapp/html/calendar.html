@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3:7 Layout</title>
+    <title>캘린더 앱</title>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js" defer></script>
     <script src="../js/calendar.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -444,7 +444,7 @@ body.dark-mode {
         <!-- Sidebar -->
         <div id="sidebar" class="flex flex-col items-center bg-gray-100 text-gray-700 rounded-lg shadow-lg sidebar">
             <!-- 사이드바 내용 -->
-            <a class="flex items-center w-full px-4 py-4" href="#">
+            <a class="flex items-center w-full px-4 py-4" href="../intro/intro.html">
                 <svg class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
                 </svg>
@@ -487,7 +487,7 @@ body.dark-mode {
                     </label>
                     <span class="ml-2 text-sm font-medium">Dark Mode</span>
                 </div>
-                <a class="flex items-center w-full px-3 py-4" href="#">
+                <a class="flex items-center w-full px-3 py-4" id="logoutButton" href="#">
                     <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                     </svg>&nbsp;Sign out
@@ -567,6 +567,7 @@ body.dark-mode {
             });
         });
     </script>
+    <script src="../js/logout.js"></script>
 </body>
 
 </html>

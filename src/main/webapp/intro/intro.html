@@ -368,14 +368,20 @@ h3 {
 	    },
 	});
 
-      
-      
+    
      const btn = document.querySelector(".button");
-
+     const loggedInUser = localStorage.getItem('loginUser');
+     
       btn.addEventListener("click", clickHandler);
 
       function clickHandler(){
-          window.location.href = "../html/login_singup.html";
+    	// loginUser가 있으면 기능 페이지로 이동
+          if (loggedInUser) {
+              window.location.href = "../html/dailyList.html"; // dailyList.html이나 원하는 기능 페이지로 이동
+          }else{
+        	  window.location.href = "../html/login_singup.html";
+          }
+          
       } 
       
       
