@@ -11,6 +11,7 @@
     <style>
     /* 공통 스타일 */
 body {
+	font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
     background-color: #e5e7eb;
     display: flex;
     justify-content: center;
@@ -265,6 +266,8 @@ body {
         margin: 45px 0px 0px 0px;
         height: 495px;
     }
+    
+ 
 
     .calendar-header {
         flex-direction: column;
@@ -370,7 +373,12 @@ body.dark-mode {
 .dark-mode .fc-scrollgrid,
 .dark-mode .fc-daygrid-day {
     background-color: #1e1e1e;
-    border-color: #2c2c2c;
+    border-color: #ffffff;
+}
+
+.dark-mode .fc .fc-timegrid-slot-label-cushion,
+.dark-mode .fc .fc-timegrid-axis-cushion {
+	color : #ffffff;
 }
 
 .dark-mode .fc-toolbar-title,
