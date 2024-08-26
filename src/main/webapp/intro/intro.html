@@ -11,49 +11,57 @@
 <title>Ah-Matda(아맞다)</title>
 </head>
 <style>
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 h1 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 8rem; /* 기본 폰트 크기 */
-    letter-spacing: 0.1em;
-    font-family: 'DungGeunMo';
+	text-align: center;
+	margin-bottom: 1rem;
+	font-size: 8rem; /* 기본 폰트 크기 */
+	letter-spacing: 0.1em;
+	font-family: 'DungGeunMo';
 }
 
-@media (max-width: 1200px) {
-    h1 {
-        font-size: 6rem; /* 화면 너비가 1200px 이하일 때 크기 조정 */
-    }
-    h2 {
-        font-size: 4rem; /* 화면 너비가 1200px 이하일 때 크기 조정 */
-    }
+@media ( max-width : 1200px) {
+	h1 {
+		font-size: 6rem; /* 화면 너비가 1200px 이하일 때 크기 조정 */
+	}
+	h2 {
+		font-size: 4rem; /* 화면 너비가 1200px 이하일 때 크기 조정 */
+	}
 }
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 4rem; /* 화면 너비가 768px 이하일 때 크기 조정 */
-    }
-     h2 {
-        font-size: 3rem; /* 화면 너비가 768px 이하일 때 크기 조정 */
-    }
+@media ( max-width : 768px) {
+	h1 {
+		font-size: 4rem; /* 화면 너비가 768px 이하일 때 크기 조정 */
+	}
+	h2 {
+		font-size: 3rem; /* 화면 너비가 768px 이하일 때 크기 조정 */
+	}
 }
 
-@media (max-width: 480px) {
-    h1 {
-        font-size: 3rem; /* 화면 너비가 480px 이하일 때 크기 조정 */
-    }
-     h2 {
-        font-size: 2rem; /* 화면 너비가 480px 이하일 때 크기 조정 */
-    }
+@media ( max-width : 480px) {
+	h1 {
+		font-size: 3rem; /* 화면 너비가 480px 이하일 때 크기 조정 */
+	}
+	h2 {
+		font-size: 2rem; /* 화면 너비가 480px 이하일 때 크기 조정 */
+	}
 }
 
 h2 {
 	text-align: center;
 	margin-bottom: 1rem;
 	font-size: 5rem; /* 원하는 크기로 조정하세요 */
-    letter-spacing: 0.1em; /* 선택사항: 글자 간격을 조정할 수 있습니다 */
-    font-family: 'DungGeunMo';
+	letter-spacing: 0.1em; /* 선택사항: 글자 간격을 조정할 수 있습니다 */
+	font-family: 'DungGeunMo';
 }
-
 
 .second-block-eachblock1, .second-block-eachblock2,
 	.second-block-eachblock3 {
@@ -66,7 +74,9 @@ h2 {
 	padding: 10px; /* 블록 내부에 여백 추가 */
 	box-sizing: border-box; /* 패딩 포함한 너비 계산 */
 	border-radius: 10px;
+	font-family: 'NEXON Lv1 Gothic OTF';
 }
+
 .second-block-eachblock1:hover, .second-block-eachblock2:hover,
 	.second-block-eachblock3:hover {
 	background-color: #275efe;
@@ -74,51 +84,53 @@ h2 {
 }
 
 .second-picture {
-	width: 80%; /* 각 이미지의 너비를 부모의 30%로 설정 */
-	height: auto; /* 이미지의 비율을 유지하며 높이를 자동으로 설정 */
+	width: 200px; /* Set a fixed width for the images */
+	height: 150px; /* Set a fixed height for the images */
+	object-fit: cover;
+	/* Ensures the image covers the space without distortion */
 	border-radius: 10%;
 	margin-top: 10px;
-	margin-bottom: 20px; /* 이미지와 텍스트 사이에 간격 추가 */
-	/* align-items: center; */
+	margin-bottom: 20px; /* Maintain space between image and text */
 }
 
 .second-block-ment {
-    font-size: 2rem; /* 기본 폰트 크기 */
-    border-radius: 5%;
-    background-color: #275efe;
-    color: white;
-    text-align: center;
-    padding: 5px 10px;
-    width: 40%;
-    box-sizing: border-box;
+	font-size: 2rem; /* 기본 폰트 크기 */
+	border-radius: 5%;
+	background-color: #275efe;
+	color: white;
+	text-align: center;
+	padding: 5px 10px;
+	width: 40%;
+	box-sizing: border-box;
 }
 
-@media (max-width: 1200px) {
-    .second-block-ment {
-        font-size: 1.5rem; /* 화면 너비가 1200px 이하일 때 */
-    }
+@media ( max-width : 1200px) {
+	.second-block-ment {
+		font-size: 1.5rem; /* 화면 너비가 1200px 이하일 때 */
+	}
 }
 
-@media (max-width: 768px) {
-    .second-block-ment {
-        font-size: 1.1rem; /* 화면 너비가 768px 이하일 때 */
-        width: 100%;
-    }
-     #close {
-        font-size: 1.5vw; /* Increase the font size as the screen width decreases */
-    }
+@media ( max-width : 768px) {
+	.second-block-ment {
+		font-size: 1.1rem; /* 화면 너비가 768px 이하일 때 */
+		width: 100%;
+	}
+	#close {
+		font-size: 1.5vw;
+		/* Increase the font size as the screen width decreases */
+	}
 }
 
-@media (max-width: 480px) {
-    .second-block-ment {
-        font-size: 0.5rem; /* 화면 너비가 480px 이하일 때 */
-         width: 100%;
-    }
-     #close {
-        font-size: 1vw; /* Increase the font size as the screen width decreases */
-    }
+@media ( max-width : 480px) {
+	.second-block-ment {
+		font-size: 0.5rem; /* 화면 너비가 480px 이하일 때 */
+		width: 100%;
+	}
+	#close {
+		font-size: 1vw;
+		/* Increase the font size as the screen width decreases */
+	}
 }
-
 
 .dialog {
 	display: none;
@@ -164,11 +176,11 @@ h2 {
 
 .dialog .ct {
 	max-height: 60vh;
-  overflow-y: auto; /* 콘텐츠에 스크롤을 추가 */
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: #fff;
-  padding: 10px; /* 내부 여백 추가 */
+	overflow-y: auto; /* 콘텐츠에 스크롤을 추가 */
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-color: #fff;
+	padding: 10px; /* 내부 여백 추가 */
 }
 
 h3 {
@@ -176,21 +188,21 @@ h3 {
 	margin-bottom: 1rem;
 	font-size: 3rem; /* 원하는 크기로 조정하세요 */
 	/* font-weight: bold; */ /* 선택사항: 글자의 두께를 조정할 수 있습니다 */
-    letter-spacing: 0.1em; /* 선택사항: 글자 간격을 조정할 수 있습니다 */
-    font-family: 'DungGeunMo';
+	letter-spacing: 0.1em; /* 선택사항: 글자 간격을 조정할 수 있습니다 */
+	font-family: 'DungGeunMo';
 }
 
-.productIntro{
+.productIntro {
 	text-align: center;
 	margin-bottom: 1rem;
 	font-size: 5rem; /* 원하는 크기로 조정하세요 */
 	/* font-weight: bold; */ /* 선택사항: 글자의 두께를 조정할 수 있습니다 */
-    letter-spacing: 0.1em; /* 선택사항: 글자 간격을 조정할 수 있습니다 */
+	letter-spacing: 0.1em; /* 선택사항: 글자 간격을 조정할 수 있습니다 */
 	font-family: 'DungGeunMo';
 	color: white;
 }
 
-#close{
+#close {
 	cursor: pointer;
 	font-size: 1.5vw;
 	border-radius: 5%;
@@ -201,46 +213,47 @@ h3 {
 	padding: 5px 10px; /* 텍스트 주변에 패딩 추가 */
 	width: 10%; /* 텍스트 블록이 전체 너비를 차지하게 설정 */
 	box-sizing: border-box; /* 패딩 포함한 너비 계산 */
+	font-family: 'NEXON Lv1 Gothic OTF';
 }
 
 #close:hover {
-	
-      background-color:rgb(85, 189, 56); 
-      transition: 1.0s;
-  }
-  
+	background-color: rgb(85, 189, 56);
+	transition: 1.0s;
+}
 
 #close:active {
-    background-color:rgb(85, 189, 56); 
+	background-color: rgb(85, 189, 56);
 }
 
 .responsive-image {
-    width: 100%; /* 이미지의 너비를 부모 요소에 맞추어 100%로 설정 */
-    height: auto; /* 높이는 자동으로 설정되어 이미지의 비율을 유지 */
-    max-width: 600px; /* 원본 크기를 넘지 않도록 최대 너비를 설정 */
-    display: block; /* 이미지의 아래에 있는 콘텐츠와 충돌하지 않도록 block 요소로 설정 */
-    margin: 0 auto; /* 이미지 중앙 정렬 */
+	width: 100%; /* 이미지의 너비를 부모 요소에 맞추어 100%로 설정 */
+	height: auto; /* 높이는 자동으로 설정되어 이미지의 비율을 유지 */
+	max-width: 600px; /* 원본 크기를 넘지 않도록 최대 너비를 설정 */
+	display: block; /* 이미지의 아래에 있는 콘텐츠와 충돌하지 않도록 block 요소로 설정 */
+	margin: 0 auto; /* 이미지 중앙 정렬 */
 }
 
-.review-block{
+.review-block {
 	display: flex;
 	justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 세로 정렬을 중앙으로 설정 */
-    width: 100%; /* 부모 컨테이너의 너비에 맞게 설정 */
+	align-items: center; /* 세로 정렬을 중앙으로 설정 */
+	width: 100%; /* 부모 컨테이너의 너비에 맞게 설정 */
 }
 
 .review-picture {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
 }
-
 </style>
 <body>
 	<header>
 		<h2>Ah-Matda</h2>
 		<nav>
-			<span><a href="#section1">기능소개</a></span> <span><a
-				href="#section2">캐릭터소개</a></span> <span><a href="#section3">시작하기</a></span>
+			<<span><a href="#section1"
+				style="font-family: 'NEXON Lv1 Gothic OTF';">기능소개</a></span> <span><a
+				href="#section2" style="font-family: 'NEXON Lv1 Gothic OTF';">캐릭터소개</a></span>
+			<span><a href="#section3"
+				style="font-family: 'NEXON Lv1 Gothic OTF';">시작하기</a></span>
 		</nav>
 	</header>
 
@@ -248,7 +261,7 @@ h3 {
 		<section data-scroll>
 			<h1 class="title">ToDo-list📋</h1>
 			<h1 class="title">아!!맞다🫢</h1>
-			<h1 class="title">         </h1>
+			<h1 class="title"></h1>
 		</section>
 	</div>
 
@@ -259,12 +272,12 @@ h3 {
 
 			<div class="second-block">
 				<div class="second-block-eachblock1" data-title="✅ Today ✅"
-					 data-content='<img src="Today.png" alt="투데이" style="width: 80%; height: auto;">
+					data-content='<img src="Today.png" alt="투데이" style="width: 80%; height: auto;">
 					 <h3>🎯 투데이를 활용해 더욱 효율적인 하루를! </h3><br/><br/>
 					 <img src="todayImg.png" alt="투데이 이미지" style="width: 80%; height: auto;">
 					 <h3>📋 오늘의 일정, 더 똑똑하게 관리하세요! </h3>
 					'>
-					<img class="second-picture" src="americano.jpg" alt="투데이 이미지">
+					<img class="second-picture" src="today.jpg" alt="투데이 이미지">
 					<div class="second-block-ment">Today</div>
 				</div>
 				<div class="second-block-eachblock2" data-title="📆 Calendar 📆"
@@ -273,14 +286,15 @@ h3 {
 					 <img src="calendarImg.png" alt="투데이 이미지" style="width: 80%; height: auto;">
 					 <h3> 📆 일,월,년도별로 관리해보아요!! </h3>
 					'>
-					<img class="second-picture" src="americano.jpg" alt="캘린더 이미지">
+					<img class="second-picture" src="calendar.jpg" alt="캘린더 이미지">
 					<div class="second-block-ment">Calendar</div>
 				</div>
 				<div class="second-block-eachblock3" data-title="🏷️ Memo 🏷️"
 					data-content='<img src="Memo.png" alt="메모" style="width: 80%; height: auto;">
 					 <h3> 🗓 언제 까먹을지 몰라!! 🗓️ </h3>
 					'>
-					<img class="second-picture" src="americano.jpg" alt="메모 이미지">
+					<img class="second-picture" src="memo_second_block.png"
+						alt="메모 이미지">
 					<div class="second-block-ment">Memo</div>
 				</div>
 			</div>
@@ -293,7 +307,7 @@ h3 {
 			<div class="third-block">
 				<!-- <img class="third-block-picture" src="intro_game_imo.png"
 					alt="투두 리스트 달성시 이모티콘"> -->
-					<img class="third-block-picture" src="levelup.gif"
+				<img class="third-block-picture" src="levelup.gif"
 					alt="투두 리스트 달성시 이모티콘">
 			</div>
 			<h2 class="title">✅리스트를달성하여✅</h2>
@@ -301,24 +315,24 @@ h3 {
 
 		</section>
 	</div>
-	
+
 	<div class="site-wrap" id="section2">
 		<section data-scroll>
-		<h2 class="title">💯사용자들의 만족도💯</h2>
+			<h2 class="title">💯사용자들의 만족도💯</h2>
 			<div class="review-block">
-				<img class="review-picture" src="review.png"
-					alt="솔직리뷰">
+				<img class="review-picture" src="review.png" alt="솔직리뷰">
 			</div>
 		</section>
 	</div>
-	
-	
-	
+
+
+
 
 	<div class="site-wrap" id="section3">
 		<section data-scroll>
 			<div class="third-block">
-				<button type="button" class="button">시작하기</button>
+				<button type="button" class="button"
+					style="font-family: 'NEXON Lv1 Gothic OTF';">시작하기</button>
 			</div>
 		</section>
 	</div>
