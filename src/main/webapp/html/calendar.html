@@ -1,60 +1,564 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-  <meta charset='utf-8' />
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-  <script src="../js/calendar.js"></script>
- <link rel="stylesheet" href="../css/sideBar.css">
-  <script src="../js/darkMode.js"></script>
-  </head>
-  <body>
-  
-  <!-- 사이드 바 시작 -->
- <aside class="sidebar">
-        <button class="toggle-button">
-        <!-- 토글 아이콘 -->
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  			<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-		</svg>
-        </button>
-        <div class="menu">
-            <h2>Menu</h2>
-            <ul>
-                <li>
-                    <a href="calendar.html"><i class="fa fa-calendar"></i> <span>Calendar</span></a>
-                </li>
-                <li>
-                    <a href="dailyList.html"><i class="fa fa-tasks"></i> <span>TodoList</span></a>
-                </li>
-            </ul>
-            <!-- 다크모드 토글 on/off -->
-            <div class="dark-mode-toggle">
-			    <label class="switch">
-			        <input type="checkbox" id="toggleDarkMode">
-			        <span class="slider round"></span>
-			    </label>
-			</div>
-        </div>
-    </aside>
-    <!-- 사이드 바 끝 -->
-    <div class="main-content">
-        <div class="header">
-            <div class="calendar-navigation">
-                <button id="prev">Prev</button>
-                <button id="next">Next</button>
-                <button id="today">Today</button>
-            </div>
-            <h1 id="calendar-title">Calendar</h1>
-            <div class="view-buttons">
-                <button id="dayGridMonth">Month</button>
-                <button id="timeGridWeek">Week</button>
-                <button id="timeGridDay">Day</button>
-            </div>
-        </div>
-        <div class="calendar-container">
-            <div id="calendar"></div>
-      
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3:7 Layout</title>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js" defer></script>
+    <script src="../js/calendar.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+    /* 공통 스타일 */
+body {
+    background-color: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    max-width: 1200px;
+    height: calc(100vh - 20px);
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+.sidebar {
+    width: 30%;
+    max-width: 250px;
+    background-color: #f3f4f6;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.content {
+    width: 70%;
+    padding: 20px;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.bg-gray-100 {
+    background-color: #f3f4f6;
+}
+
+.text-gray-700 {
+    color: #4b5563;
+}
+
+.rounded-lg {
+    border-radius: 12px;
+}
+
+.shadow-lg {
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.w-48 {
+    width: 12rem;
+}
+
+.h-12 {
+    height: 3rem;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.my-1 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.hover\:bg-gray-200:hover {
+    background-color: #e5e7eb;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.border-t {
+    border-top-width: 1px;
+}
+
+.border-gray-300 {
+    border-color: #d1d5db;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
+/* 추가된 스타일 */
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.title-nav {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.nav-button,
+.view-button {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4b5563;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover,
+.view-button:hover {
+    background-color: #e5e7eb;
+}
+
+.view-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+}
+
+#calendar-title {
+    font-size: 24px;
+    font-weight: bold;
+    /*color: #4b5563; */
+    margin: 0 20px;
+}
+
+#today {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#today:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: row;
+        width: 100%;
+        height: calc(100vh - 20px);
+        margin: 0;
+        padding: 0;
+        align-items: stretch;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 70%;
+        height: 100%;
+        background-color: #f3f4f6;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .content {
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calendar-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-top: -50px;
+    }
+
+    .fc-scrollgrid {
+        margin-top: 30px;
+    }
+
+    .fc .fc-scrollgrid-liquid {
+        margin: 45px 0px 0px 0px;
+        height: 495px;
+    }
+
+    .calendar-header {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .title-nav {
+        margin-bottom: 15px;
+    }
+
+    .nav-button,
+    .view-button {
+        margin: 5px;
+        z-index: 10;
+        position: relative;
+        font-size: 12px;
+    }
+
+    .hamburger-menu {
+        position: fixed;
+        top: 30px;
+        left: 10px;
+        z-index: 1100;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .hamburger-menu div {
+        width: 100%;
+        height: 3px;
+        background-color: #333;
+    }
+
+    .fc-daygrid-day-frame {
+        height: auto;
+        font-size: inherit;
+    }
+
+    .fc-daygrid-day {
+        padding: 10px;
+    }
+
+    #calendar-title {
+        font-size: 18px;
+    }
+
+    #today-date {
+        font-size: 12px;
+    }
+
+    .fc-toolbar-title {
+        font-size: 14px;
+    }
+
+    .fc .fc-daygrid-day-top {
+        font-size: 12px;
+    }
+
+    /* 오버레이 추가 */
+    #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 900;
+    }
+
+    /* 사이드바가 열리면 오버레이를 표시 */
+    .sidebar.open+#overlay {
+        display: block;
+    }
+
+}
+
+/* 다크 모드 스타일 */
+body.dark-mode {
+    background-color: #121212;
+}
+
+.dark-mode .container {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .sidebar {
+    background-color: #2c2c2c;
+    color: #d4d4d4;
+}
+
+
+
+.dark-mode .calendar-header,
+.dark-mode .fc-toolbar {
+    color: #d4d4d4;
+}
+
+.dark-mode .fc-scrollgrid,
+.dark-mode .fc-daygrid-day {
+    background-color: #1e1e1e;
+    border-color: #2c2c2c;
+}
+
+.dark-mode .fc-toolbar-title,
+.dark-mode .fc-daygrid-day-top,
+.dark-mode .fc-daygrid-day-number,
+.dark-mode .fc-daygrid-day-events {
+    color: #f9fafb;
+}
+
+.dark-mode .nav-button,
+.dark-mode .view-button {
+    background-color: #1e1e1e;
+    color: #e2e8f0;
+}
+
+.dark-mode .nav-button:hover,
+.dark-mode .view-button:hover {
+    background-color: #555555;
+}
+
+.dark-mode .view-button {
+    background-color: #555555;
+    color: white;
+}
+
+.dark-mode .fc-col-header {
+    color: white;
+}
+
+.dark-mode #today {
+    background-color: #555555;
+}
+
+.dark-mode #today:hover {
+    background-color: #007bff;
+}
+
+.dark-mode .hamburger-menu div {
+    background-color: #fff;
+}
+
+/* 다크 모드에서 사이드바 아이콘 색상 수정 */
+.dark-mode .sidebar a svg {
+    color: #ffffff;
+    
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- 햄버거 메뉴 버튼 -->
+    <div class="hamburger-menu" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
+
+    <!-- 오버레이 추가 -->
+    <div id="overlay" onclick="closeSidebar()"></div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div id="sidebar" class="flex flex-col items-center bg-gray-100 text-gray-700 rounded-lg shadow-lg sidebar">
+            <!-- 사이드바 내용 -->
+            <a class="flex items-center w-full px-4 py-4" href="#">
+                <svg class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+                </svg>
+                <span class="ml-2 text-lg font-bold">아맞다</span>
+            </a>
+            <div class="w-full px-2">
+                <div class="flex flex-col w-full mt-3">
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="dailyList.html">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">To-do-list</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="calendar.html">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Calendar</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="memo.html">
+                        <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 9h3a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v12a2 2 0 002 2h3z" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Sticky Wall</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="goal.html">
+                        <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5-6l3 3-3 3" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Goal</span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-auto border-t border-gray-300">
+                <!-- 다크 모드 스위치 -->
+                <div class="dark-mode-toggle w-full px-3 py-4">
+                    <label class="switch">
+                        <input type="checkbox" id="toggleDarkMode">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="ml-2 text-sm font-medium">Dark Mode</span>
+                </div>
+                <a class="flex items-center w-full px-3 py-4" href="#">
+                    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                    </svg>&nbsp;Sign out
+                </a>
+            </div>
+        </div>
+
+        <!-- Content 영역 -->
+        <div class="content">
+            <div class="calendar-header">
+                <button id="today" class="nav-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2" stroke-width="2"></rect>
+                        <path d="M16 2v4M8 2v4m4 3h.01"></path>
+                        <text x="12" y="16" text-anchor="middle" font-size="10" fill="black" dominant-baseline="middle" id="today-date">
+                            <!-- 날짜 표시 부분은 자바스크립트로 설정 -->
+                        </text>
+                    </svg>
+                </button>
+                <div class="title-nav">
+                    <button id="prev" class="nav-button">&lt;</button>
+                    <h1 id="calendar-title"></h1>
+                    <button id="next" class="nav-button">&gt;</button>
+                </div>
+                <div class="view-buttons">
+                    <button id="dayGridMonth" class="view-button">Month</button>
+                    <button id="timeGridWeek" class="view-button">Week</button>
+                    <button id="timeGridDay" class="view-button">Day</button>
+                </div>
+            </div>
+            <div class="calendar-container">
+                <div id="calendar"></div>
+            </div>
+        </div>
     </div>
-    </body>
+    <!-- Content 영역 끝 -->
+
+    <script>
+        // 오늘 날짜를 가져와서 버튼에 표시
+        const todayButton = document.getElementById('today-date');
+        const todayDate = new Date().getDate();
+        todayButton.textContent = todayDate;
+
+        // 사이드바 토글 기능 추가
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open'); // 'open' 클래스 추가/제거
+            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none'; // 오버레이 표시 여부
+        }
+
+        // 오버레이를 클릭하면 사이드바를 닫음
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.remove('open'); // 'open' 클래스 제거
+            overlay.style.display = 'none'; // 오버레이 숨김
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let toggleDarkModeSwitch = document.getElementById('toggleDarkMode');
+
+            // 페이지 로드 시 다크 모드 상태 유지
+            if (localStorage.getItem('dark-mode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                toggleDarkModeSwitch.checked = true; // 스위치 켜짐 상태로 설정
+            }
+
+            toggleDarkModeSwitch.addEventListener('change', function () {
+                if (toggleDarkModeSwitch.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('dark-mode', 'enabled');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('dark-mode', 'disabled');
+                }
+            });
+        });
+    </script>
+</body>
+
 </html>
