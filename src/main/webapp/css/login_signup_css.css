@@ -13,12 +13,18 @@
 	--insta-color: #E1306C;
 }
 
-@import
-	url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap')
-	;
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 
 * {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'NEXON Lv1 Gothic OTF';
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
