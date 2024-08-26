@@ -2,8 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>login & signUp here!!</title>
 <link rel="stylesheet" href="../css/login_signup_css.css">
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 페이지 로드 시, 로컬 스토리지에 loginUser가 있는지 확인
+            const loggedInUser = localStorage.getItem('loginUser');
+            
+            // loginUser가 있으면 기능 페이지로 자동 리디렉션
+            if (loggedInUser) {
+                window.location.href = "../intro/intro.html"; // dailyList.html이나 원하는 기능 페이지로 이동
+            }
+        });
+    </script>
 </head>
 <body>
 	<div id="container" class="container">
