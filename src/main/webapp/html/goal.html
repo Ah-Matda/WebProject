@@ -1,48 +1,432 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Goal</title>
-<link rel="stylesheet" href="../css/goal_style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>목표 달성 시스템</title>
+    <link rel="stylesheet" href="../css/goal_style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* 기존 코드 유지 */
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9fafb;
+        }
+
+        .wrapper {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f3f4f6;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .content-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; /* 세로 방향으로 정렬 */
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: #f9fafb;
+            overflow: hidden; /* 전체 컨텐츠가 고정된 영역 내에 있게 설정 */
+            height: 100vh;
+        }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* 상단 고정 및 내용 스크롤을 위한 설정 */
+        }
+
+        .character-section,
+        .game-section,
+        .goal-section {
+            margin-bottom: 20px; /* 각 섹션 간에 적절한 간격을 유지 */
+            flex-shrink: 0; /* 섹션들이 줄어들지 않도록 고정 */
+        }
+
+        /* 목표 목록에 대한 CSS 수정 */
+        .goals {
+            max-height: 150px; /* 목표 목록의 최대 높이를 설정 */
+            overflow-y: auto; /* 목표 목록이 넘칠 경우 스크롤바를 표시 */
+            margin-bottom: 20px; /* 아래 콘텐츠와 간격 유지 */
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px;
+            flex-shrink: 0; /* 상단 영역이 밀리지 않도록 설정 */
+        }
+
+        /* 단어 목록에 대한 CSS 수정 */
+        .game-section ul {
+            max-height: 150px; /* 단어 목록의 최대 높이를 설정 */
+            overflow-y: auto; /* 단어 목록이 넘칠 경우 스크롤바를 표시 */
+            margin-top: 10px;
+            padding-left: 20px;
+            list-style-type: disc;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px;
+            flex-shrink: 0; /* 상단 영역이 밀리지 않도록 설정 */
+        }
+
+        /* 모바일에서 사이드바 숨김 및 토글 방식 설정 */
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-top: 115px;
+                height: 100%;
+                width: 70%;
+                position: fixed;
+                left: -100%;
+                border-radius: 12px;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .content-container {
+                margin-left: 0;
+                padding-top: 60px;
+            }
+
+            /* 메뉴 토글바 모바일에서만 보이도록 설정 */
+            .hamburger-menu {
+                display: flex;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+            }
+        }
+
+        /* 데스크톱에서 메뉴 토글바를 숨김 */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .hamburger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: #333;
+        }
+
+        /* 오버레이 추가 */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 900;
+        }
+
+        .sidebar.open + #overlay {
+            display: block;
+        }
+
+        /* 추가한 코드 */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex; /* 모바일 환경에서 토글메뉴를 보이게 수정 */
+                color: white;
+            }
+
+            .dark-mode .hamburger-menu div {
+                background-color: white;
+            }
+        }
+
+        /* 다크 모드 스타일 */
+        body.dark-mode {
+            background-color: #121212;
+        }
+
+        .dark-mode html {
+            background-color: #121212;
+        }
+
+        .dark-mode .wrapper {
+            background-color: #1e1e1e;
+        }
+
+        .dark-mode .sidebar {
+            background-color: #2c2c2c;
+            color: #d4d4d4;
+        }
+
+        .dark-mode .sidebar a svg {
+            color: white;
+        }
+
+        .dark-mode .content-container {
+            background-color: #181818;
+        }
+
+        .dark-mode .content-container h2 {
+            color: white;
+        }
+
+        .dark-mode .content {
+            background-color: #252525;
+            color: #f9fafb;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .game-section,
+        .dark-mode .goal-section,
+        .dark-mode .goals {
+            background-color: #252525;
+            color: #f9fafb;
+            border-radius: 8px;
+            padding: 10px;
+            overflow-y: auto; /* 다크 모드에서도 목표 목록이 넘칠 경우 스크롤바를 표시 */
+        }
+
+        .dark-mode input[type="text"] {
+            background-color: #3c3c3c;
+            color: #ffffff;
+            border: 1px solid #555555;
+        }
+
+        .dark-mode button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode #dataList {
+            background-color: #2e2e2e;
+            color: white;
+        }
+
+        .dark-mode button:hover {
+            background-color: #0056b3;
+        }
+        
+        .dark-mode .goals {
+        
+        background-color: #2e2e2e;
+        
+        }
+
+        /* 라이트 모드에서의 스타일 조정 */
+        .content {
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .game-section,
+        .goal-section,
+        .goals {
+            background-color: #f8f9fa;
+            color: #333333;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        input[type="text"] {
+            background-color: #ffffff;
+            color: #333333;
+            border: 1px solid #cccccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<h1>목표 달성 시스템</h1>
 
-		<!-- 캐릭터와 레벨/경험치바 섹션 -->
-		<div class="character-section">
-			<div class="character">
-				<img id="characterImage" src="../images/character/level_1.png"
-					alt="Character">
-			</div>
-			<div class="stats">
-				<div id="levelDisplay">레벨: 1</div>
-				<div class="exp-bar">
-					<div id="expFill"></div>
-				</div>
-			</div>
-		</div>
+    <div class="wrapper">
+        <div class="hamburger-menu" onclick="toggleSidebar()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
 
-		<!-- 목표 설정 섹션 -->
-		<div class="goal-section">
-			<h2>목표 설정</h2>
-			<input type="text" id="goalInput" placeholder="목표를 입력하세요">
-			<button id="addGoalButton">목표 추가</button>
-		</div>
+        <div id="overlay" onclick="closeSidebar()"></div>
 
-		<!-- 목표 목록 섹션 -->
-		<div class="goals">
-			<h2>목표 목록</h2>
-			<ul id="goalList"></ul>
-		</div>
+        <div id="sidebar" class="sidebar">
+            <a class="flex items-center w-full px-4 py-4" href="../intro/intro.html">
+                <svg class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+                </svg>
+                <span class="ml-2 text-lg font-bold">아맞다</span>
+            </a>
+            <div class="w-full px-2">
+                <div class="flex flex-col w-full mt-3">
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="dailyList.html">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">To-do-list</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="calendar.html">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Calendar</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="memo.html">
+                        <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 9h3a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v12a2 2 0 00 2 2h3z" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Sticky Wall</span>
+                    </a>
+                    <a class="flex items-center w-full h-12 px-3 my-1 rounded-lg hover:bg-gray-200" href="goal.html">
+                        <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5-6l3 3-3 3" />
+                        </svg>
+                        <span class="ml-2 text-sm font-medium">Goal</span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-auto border-t border-gray-300">
+                <a class="flex items-center w-full px-3 py-4" href="#">
+                    <div class="dark-mode-toggle w-full px-3 py-4">
+                        <label class="switch">
+                            <input type="checkbox" id="toggleDarkMode">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="ml-2 text-sm font-medium">Dark Mode</span>
+                    </div>
+                </a>
+                <a class="flex items-center w-full px-3 py-4" id="logoutButton" href="#">
+                    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                    </svg>&nbsp;Sign out
+                </a>
+            </div>
+        </div>
 
-		<!-- 상태 메시지 섹션 -->
-		<div class="status">
-			<h2>상태</h2>
-			<p id="message"></p>
-		</div>
-	</div>
-	<script src="../js/goal_script.js"></script>
+        <div class="content-container">
+            <main id="content" class="content">
+                <header style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="hamburger-menu" onclick="toggleSidebar()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <h1 style="flex-grow: 1; text-align: center;">목표 달성 시스템</h1>
+                </header>
+                
+                <section class="character-section">
+                    <div class="character">
+                        <img id="characterImage" src="../images/character/level_1.png" alt="Character">
+                    </div>
+                    <div class="stats">
+                        <div id="levelDisplay">레벨: 1 </div>
+                        <div id="levelpercent">경험치: 0 / 100</div>
+                        <div class="exp-bar">
+                            <div id="expFill"></div>
+                        </div>
+                        <button id="gamestart">게임 시작</button>
+                    </div>
+                </section>
+                
+                <section class="game-section">
+                    <h2>영어 단어 외우기(5개) <span style="font-size: 14px; color: #F05650;">* 정답시 +20 오답시 -10점 *</span></h2>
+                    <button id="getTodayRandomWords">오늘의 단어</button>
+                    <div id="loading" class="loading-spinner" style="display:none;">
+                        <img src="../intro/levelup.gif" alt="Loading...">
+                        <h3 id="data_loading_ment">데이터 받아오는중</h3>
+                    </div>
+                    <ul id="dataList"></ul> 
+                </section>
+                
+                <section class="goal-section">
+                    <h2>목표 설정 <span style="font-size: 14px; color: #F05650;">* 달성시 +10점 *</span></h2>
+                    <input type="text" id="goalInput" placeholder="목표를 입력하세요">
+                    <button id="addGoalButton">목표 추가</button>
+                </section>
+
+                <section class="goals">
+                    <h2>목표 목록</h2>
+                    <ul id="goalList"></ul>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/goal_script.js"></script>
+    <script type="text/javascript">
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let toggleDarkModeSwitch = document.getElementById('toggleDarkMode');
+
+            if (localStorage.getItem('dark-mode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                toggleDarkModeSwitch.checked = true;
+            }
+
+            toggleDarkModeSwitch.addEventListener('change', function () {
+                if (toggleDarkModeSwitch.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('dark-mode', 'enabled');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('dark-mode', 'disabled');
+                }
+            });
+        });
+    </script> 
+    <script src="../js/logout.js"></script>
 </body>
 </html>

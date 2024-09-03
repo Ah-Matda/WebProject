@@ -2,7 +2,7 @@ const notesContainer = document.getElementById("app");
 const addNoteButton = notesContainer.querySelector(".add-note");
 
 // 사용할 색상 배열
-const colors = ['#ffeaa7', '#81ecec', '#fab1a0', '#74b9ff'];
+const colors = ['#ADDCC8', '#DBECC2', '#FFF7D2', '#FED2B5', '#F7A7A6', '#E2BBD8'];
 
 // 로컬 스토리지에서 가져온 각 노트를 화면에 표시
 getNotes().forEach((note) => {

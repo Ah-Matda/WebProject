@@ -1,83 +1,641 @@
-        /* 기본적인 페이지 레이아웃 설정 */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
-            background-color: #f7f8fa;
-        }
+/* 기본 스타일 */
+body {
 
-        .sidebar {
-            width: 250px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+	margin: 0; /* 페이지의 기본 마진 제거 */
+	font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+	display: flex; /* 플렉스 레이아웃을 사용하여 하위 요소를 배치 */
+	height: 100vh; /* 뷰포트 높이에 맞게 높이 설정 */
+	background-color: #f7f8fa; /* 기본 배경색 설정 */
+	color: #000; /* 기본 텍스트 색상 설정 */
+	transition: background-color 0.3s, color 0.3s;
+	/* 배경색과 텍스트 색상이 전환될 때 부드럽게 애니메이션 적용 */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #f7f8fa;
+    color: #000;
+    transition: background-color 0.3s, color 0.3s;
 
-        .sidebar .menu, .sidebar .tags {
-            margin-bottom: 30px;
-        }
+}
 
-        .sidebar .menu ul, .sidebar .tags ul {
-            list-style: none;
-            padding: 0;
-        }
+/* 스위치 기본 스타일 */
+.switch {
 
-        .sidebar .menu ul li, .sidebar .tags ul li {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
+	position: relative; /* 부모 요소를 기준으로 위치 설정 */
+	display: inline-block; /* 인라인 블록 요소로 설정 */
+	width: 60px; /* 스위치의 너비 설정 */
+	height: 34px; /* 스위치의 높이 설정 */
+}
 
-        .sidebar .menu ul li a, .sidebar .tags ul li a {
-            text-decoration: none;
-            color: #333;
-            display: flex;
-            align-items: center;
-            padding: 5px 0;
-            width: 100%;
-        }
+.switch input {
+	opacity: 0; /* 입력 요소를 보이지 않게 설정 */
+	width: 0; /* 너비 설정 */
+	height: 0; /* 높이 설정 */
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
 
-        .sidebar .menu ul li a:hover, .sidebar .tags ul li a:hover {
-            color: #007bff;
-        }
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
 
-        .sidebar .menu ul li a i, .sidebar .tags ul li a i {
-            margin-right: 10px;
-        }
+/* 슬라이더 스타일 */
+.slider {
+	position: absolute; /* 부모 요소를 기준으로 절대 위치 설정 */
+	cursor: pointer; /* 커서를 손가락 모양으로 변경 */
+	top: 0; /* 상단 위치 0 */
+	left: 0; /* 좌측 위치 0 */
+	right: 0; /* 우측 위치 0 */
+	bottom: 0; /* 하단 위치 0 */
+	background-color: #ccc; /* 슬라이더의 배경색 설정 */
+	transition: .4s; /* 슬라이더의 상태 전환을 부드럽게 애니메이션으로 적용 */
+	border-radius: 34px; /* 둥근 모서리 설정 */
+}
 
-        .main-content {
-            flex-grow: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            background-color: #f7f8fa;
-        }
+.slider:before {
+	position: absolute; /* 슬라이더 내부의 원 요소를 절대 위치로 설정 */
+	content: ""; /* 내용 없음 */
+	height: 26px; /* 원의 높이 설정 */
+	width: 26px; /* 원의 너비 설정 */
+	left: 4px; /* 좌측에서 4px 떨어진 위치에 설정 */
+	bottom: 4px; /* 하단에서 4px 떨어진 위치에 설정 */
+	background-color: white; /* 원의 배경색 설정 */
+	transition: .4s; /* 원의 상태 전환을 부드럽게 애니메이션으로 적용 */
+	border-radius: 50%; /* 원 모양이 되도록 둥근 모서리 설정 */
+}
 
-        .main-content .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+/* 스위치 켜짐 상태 */
+input:checked+.slider {
+	background-color: #007bff; /* 스위치가 켜졌을 때 슬라이더의 배경색 변경 */
+}
 
-        .main-content .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+/* 슬라이더 이동 */
+input:checked+.slider:before {
+	transform: translateX(26px); /* 스위치가 켜졌을 때 슬라이더 내부 원을 오른쪽으로 이동 */
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #007bff;
+    transition: .4s;
+    border-radius: 34px;
+}
 
-        .main-content .header button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
 
-        .main-content .calendar-container {
-            flex-grow: 1;
-        }
+/* 스위치 켜짐 상태 */
+input:checked + .slider {
+    background-color: #ccc;
+}
+
+/* 슬라이더 이동 */
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* 둥근 스위치 */
+.slider.round {
+	border-radius: 34px; /* 슬라이더의 모서리를 둥글게 설정 */
+}
+
+.slider.round:before {
+	border-radius: 50%; /* 슬라이더 내부 원의 모서리를 완전히 둥글게 설정 */
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* 다크 모드 */
+body.dark-mode {
+
+	background-color: #121212; /* 다크 모드에서의 배경색 설정 */
+	color: #ffffff; /* 다크 모드에서의 텍스트 색상 설정 */
+    background-color: #121212;
+    color: #ffffff;
+
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+
+	width: 250px; /* 사이드바의 너비 설정 */
+	background-color: #fff; /* 사이드바의 배경색 설정 */
+	padding: 10px; /* 사이드바 내부 패딩 설정 */
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 사이드바에 그림자 효과 추가 */
+	display: flex; /* 플렉스 레이아웃을 사용하여 하위 요소를 배치 */
+	flex-direction: column; /* 사이드바의 요소들을 세로로 정렬 */
+	justify-content: flex-start; /* 요소들을 위쪽에 정렬 */
+	position: relative; /* 사이드바의 위치를 부모 요소에 상대적으로 설정 */
+	transition: width 0.3s ease, background-color 0.3s, color 0.3s;
+	/* 사이드바의 너비, 배경색, 텍스트 색상 전환을 부드럽게 애니메이션으로 적용 */
+	height: auto; /* 사이드바의 높이를 자동으로 설정 */
+	max-height: 100vh; /* 사이드바의 최대 높이를 뷰포트 높이에 맞춤 */
+	overflow-y: auto; /* 세로 스크롤을 자동으로 설정 */
+    width: 250px;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: fixed;
+    height: 100vh;
+    transition: width 0.3s ease, background-color 0.3s, color 0.3s;
+
+}
+
+/* 다크 모드 적용 시 사이드바 스타일 */
+body.dark-mode .sidebar {
+
+	background-color: #333333; /* 사이드바 배경색을 다크 모드에 맞게 변경 */
+	color: #ffffff; /* 사이드바 텍스트 색상을 다크 모드에 맞게 변경 */
+}
+
+/* 다크 모드 적용 시 링크 색상 */
+body.dark-mode a {
+	color: #ffffff; /* 다크 모드에서 링크 텍스트 색상을 밝은 색으로 변경 */
+}
+
+/* 다크 모드 적용 시 버튼 스타일 */
+body.dark-mode button {
+	background-color: #555555; /* 다크 모드에서 버튼 배경색 변경 */
+	color: #ffffff; /* 다크 모드에서 버튼 텍스트 색상 변경 */
+}
+
+/* 다크 모드에서 사이드바 링크 텍스트 색상 */
+body.dark-mode .sidebar .menu ul li a {
+	color: #ffffff; /* 다크 모드에서 사이드바 메뉴의 링크 텍스트 색상을 밝은 색으로 변경 */
+}
+
+/* 다크 모드에서 사이드바 일반 텍스트 색상 */
+body.dark-mode .sidebar {
+	color: #ffffff; /* 다크 모드에서 사이드바의 일반 텍스트 색상도 밝은 색으로 변경 */
+
+    background-color: #333333;
+    color: #ffffff;
+}
+
+body.dark-mode .sidebar .menu ul li a {
+    color: #ffffff;
+}
+
+body.dark-mode .sidebar .menu ul li a:hover {
+    color: #007bff;
+
+}
+
+/* 사이드바 축소 시 스타일 */
+.sidebar.collapsed {
+
+	width: 60px; /* 사이드바가 축소되었을 때의 너비 설정 */
+}
+
+.sidebar .toggle-button {
+	position: absolute; /* 토글 버튼의 위치를 부모 요소에 상대적으로 설정 */
+	top: 10px; /* 상단에서 10px 떨어진 위치에 설정 */
+	left: 10px; /* 좌측에서 10px 떨어진 위치에 설정 */
+	background-color: #007bff; /* 토글 버튼의 배경색 설정 */
+	color: white; /* 토글 버튼 텍스트 색상 설정 */
+	border: none; /* 테두리 제거 */
+	border-radius: 5px; /* 버튼의 모서리를 둥글게 설정 */
+	padding: 5px 10px; /* 버튼 내부 패딩 설정 */
+	cursor: pointer; /* 커서를 손가락 모양으로 변경 */
+	z-index: 10; /* z-index를 설정하여 버튼이 다른 요소 위에 나타나도록 설정 */
+}
+
+.sidebar .menu {
+	margin-top: 40px; /* 메뉴 상단에 여백 설정 */
+	overflow: hidden; /* 메뉴가 컨테이너를 벗어나지 않도록 설정 */
+}
+
+.sidebar.collapsed .menu h2 {
+	display: none; /* 사이드바가 축소되었을 때 메뉴 제목 숨김 */
+}
+
+.sidebar.collapsed .menu ul li a span {
+	display: none; /* 사이드바가 축소되었을 때 메뉴 링크 텍스트 숨김 */
+}
+
+.sidebar .menu ul {
+	list-style: none; /* 리스트의 기본 스타일 제거 */
+	padding: 0; /* 리스트의 기본 패딩 제거 */
+}
+
+.sidebar .menu ul li {
+	margin-bottom: 15px; /* 리스트 항목 하단에 여백 설정 */
+	display: flex; /* 플렉스 레이아웃을 사용하여 하위 요소를 배치 */
+	align-items: center; /* 요소를 세로축에서 중앙 정렬 */
+	justify-content: center; /* 요소를 가로축에서 중앙 정렬 */
+}
+
+.sidebar .menu ul li a {
+	text-decoration: none; /* 링크의 밑줄 제거 */
+	color: #333; /* 링크의 텍스트 색상 설정 */
+	display: flex; /* 플렉스 레이아웃을 사용하여 하위 요소를 배치 */
+	align-items: center; /* 링크 내부 요소들을 세로축에서 중앙 정렬 */
+	justify-content: center; /* 링크 내부 요소들을 가로축에서 중앙 정렬 */
+	padding: 5px 0; /* 링크 내부 상하 패딩 설정 */
+	width: 100%; /* 링크 너비를 부모 요소에 맞춤 */
+}
+
+.sidebar .menu ul li a i {
+	margin-right: 0; /* 아이콘과 텍스트 사이의 여백 설정 */
+}
+
+.sidebar .menu ul li a:hover {
+	color: #007bff; /* 링크에 마우스를 올렸을 때 텍스트 색상 변경 */
+    width: 60px;
+}
+
+.sidebar .toggle-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* 다크 모드에서 토글 버튼 스타일 */
+body.dark-mode .sidebar .toggle-button {
+    background-color: #555555;
+    color: white;
+}
+
+.sidebar .menu {
+    margin-top: 40px;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .menu h2 {
+    display: none;
+}
+
+.sidebar.collapsed .menu ul li a span {
+    display: none;
+}
+
+.sidebar .menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar .menu ul li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar .menu ul li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    width: 100%;
+
+}
+
+/* 메인 컨텐츠 스타일 */
+.main-content {
+	flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+	padding: 20px; /* 메인 컨텐츠의 내부 패딩 설정 */
+	display: flex; /* 플렉스 레이아웃을 사용하여 하위 요소를 배치 */
+	flex-direction: column; /* 메인 컨텐츠 내부 요소들을 세로로 정렬 */
+	background-color: #f7f8fa; /* 메인 컨텐츠의 배경색 설정 */
+	color: #000; /* 메인 컨텐츠의 텍스트 색상 설정 */
+	transition: margin-left 0.3s ease, background-color 0.3s, color 0.3s;
+	/* 다크모드 전환 및 사이드바 축소 시 애니메이션 효과 추가 */
+	overflow: hidden; /* 메인 컨텐츠가 컨테이너를 벗어나지 않도록 설정 */
+	height: 100%; /* 메인 컨텐츠의 높이를 100%로 설정 */
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f8fa;
+    color: #000;
+    transition: margin-left 0.3s ease, width 0.3s ease, background-color 0.3s, color 0.3s;
+    overflow: hidden;
+    height: 100vh;
+    margin-left: 265px;
+    width: calc(100% - 250px);
+
+}
+
+/* 다크 모드 적용 시 메인 컨텐츠 스타일 */
+body.dark-mode .main-content {
+
+	background-color: #1e1e1e; /* 다크 모드에서 메인 컨텐츠 배경색 설정 */
+	color: #ffffff; /* 다크 모드에서 메인 컨텐츠 텍스트 색상 설정 */
+    background-color: #1e1e1e;
+    color: #ffffff;
+
+}
+
+/* 캘린더 스타일 */
+#calendar {
+
+	background-color: #ffffff; /* 캘린더 배경색 설정 */
+	color: #000; /* 캘린더 텍스트 색상 설정 */
+    background-color: #ffffff;
+    color: #000;
+    width: 100%;
+    height: 100%;
+
+}
+
+/* 다크 모드 적용 시 캘린더 스타일 */
+body.dark-mode #calendar {
+
+	background-color: #2c2c2c; /* 다크 모드에서 캘린더 배경색 설정 */
+	color: #ffffff; /* 다크 모드에서 캘린더 텍스트 색상 설정 */
+
+    background-color: #2c2c2c;
+    color: #ffffff;
+
+}
+
+/* 기본 버튼 스타일 */
+.fc-button {
+
+	background-color: #007bff; /* 버튼 배경색 설정 */
+	border: none; /* 버튼 테두리 제거 */
+	color: white; /* 버튼 텍스트 색상 설정 */
+	transition: background-color 0.3s, color 0.3s;
+	/* 버튼 배경색 및 텍스트 색상 전환 애니메이션 효과 추가 */
+}
+
+/* 버튼 호버 스타일 */
+.fc-button:hover {
+	background-color: #0056b3; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+}
+
+/* 다크 모드 적용 시 버튼 스타일 */
+body.dark-mode .fc-button {
+	background-color: #555555; /* 다크 모드에서 버튼 배경색 설정 */
+	color: #ffffff; /* 다크 모드에서 버튼 텍스트 색상 설정 */
+}
+
+/* 활성화된 버튼 스타일 */
+.fc-button.fc-button-active {
+	background-color: #004085; /* 활성화된 버튼의 배경색 설정 */
+}
+
+/* 다크 모드 적용 시 활성화된 버튼 스타일 */
+body.dark-mode .fc-button.fc-button-active {
+	background-color: #333333; /* 다크 모드에서 활성화된 버튼 배경색 설정 */
+}
+
+.main-content.collapsed {
+	margin-left: 60px; /* 사이드바 축소 시 메인 컨텐츠의 왼쪽 여백 조정 */
+}
+
+.main-content .header {
+	display: flex; /* 플렉스 레이아웃을 사용하여 헤더 내부 요소들을 배치 */
+	justify-content: space-between; /* 헤더 요소들을 가로축에서 양 끝에 정렬 */
+	align-items: center; /* 헤더 요소들을 세로축에서 중앙 정렬 */
+	margin-bottom: 20px; /* 헤더 하단에 여백 설정 */
+}
+
+.main-content .header h1 {
+	margin: 0; /* 헤더 제목의 기본 마진 제거 */
+	font-size: 24px; /* 헤더 제목의 글꼴 크기 설정 */
+}
+
+.main-content .header .view-buttons {
+	display: flex; /* 플렉스 레이아웃을 사용하여 버튼들을 배치 */
+	gap: 10px; /* 버튼들 사이의 간격 설정 */
+	justify-content: flex-end; /* 버튼들을 오른쪽에 정렬 */
+}
+
+.main-content .header .view-buttons button {
+	padding: 10px 20px; /* 버튼 내부 패딩 설정 */
+	background-color: #007bff; /* 버튼 배경색 설정 */
+	color: #fff; /* 버튼 텍스트 색상 설정 */
+	border: none; /* 버튼 테두리 제거 */
+	border-radius: 5px; /* 버튼의 모서리를 둥글게 설정 */
+	cursor: pointer; /* 커서를 손가락 모양으로 변경 */
+	width: auto; /* 버튼의 너비를 자동으로 설정 */
+
+    background-color: #007bff;
+    border: none;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 버튼 활성화 상태 */
+.fc-button.fc-button-active {
+    background-color: #004085;
+    color: white;
+}
+
+/* 버튼에 포커스 또는 호버 상태 */
+.fc-button:hover, .fc-button:focus {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* 다크 모드에서 캘린더 버튼 스타일링 */
+body.dark-mode .fc .fc-toolbar button {
+    background-color: #555555 !important;
+    color: white !important;
+    border: none !important;
+}
+
+body.dark-mode .fc .fc-toolbar button.fc-button-active {
+    background-color: #333333 !important;
+    color: white !important;
+}
+
+body.dark-mode .fc .fc-toolbar button:hover, 
+body.dark-mode .fc .fc-toolbar button:focus {
+    background-color: #777777 !important;
+    color: white !important;
+}
+
+.main-content .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.main-content .header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.main-content .header .view-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.main-content .header .view-buttons button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+}
+
+body.dark-mode .calendar-navigation button {
+	background-color: #555555;
+
+}
+
+/* 다크 모드 적용 시 뷰 버튼 스타일 */
+body.dark-mode .main-content .header .view-buttons button {
+
+	background-color: #555555; /* 다크 모드에서 뷰 버튼 배경색 설정 */
+
+    background-color: #555555;
+
+}
+
+
+
+.header button {
+
+	padding: 10px 20px; /* 버튼 내부 패딩 설정 */
+	background-color: #007bff; /* 버튼 배경색 설정 */
+	color: #fff; /* 버튼 텍스트 색상 설정 */
+	border: none; /* 버튼 테두리 제거 */
+	border-radius: 5px; /* 버튼의 모서리를 둥글게 설정 */
+	cursor: pointer; /* 커서를 손가락 모양으로 변경 */
+}
+
+.main-content .calendar-container {
+	flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+	overflow: auto; /* 캘린더 컨테이너에 스크롤 가능하도록 설정 */
+}
+
+/* 미디어 쿼리 - 모바일 환경 (화면 너비가 480px 이하) */
+@media ( max-width : 480px) {
+	.sidebar {
+		width: 60px; /* 모바일에서 사이드바의 너비 설정 */
+		padding: 5px; /* 사이드바 내부 패딩 조정 */
+		height: auto; /* 사이드바의 높이를 자동으로 설정 */
+		max-height: 100vh; /* 사이드바의 최대 높이를 뷰포트 높이에 맞춤 */
+	}
+	.sidebar.collapsed {
+		width: 50px; /* 모바일에서 사이드바가 축소되었을 때의 너비 설정 */
+	}
+	.sidebar .toggle-button {
+		top: 10px; /* 모바일에서 토글 버튼의 상단 위치 설정 */
+		left: 10px; /* 모바일에서 토글 버튼의 좌측 위치 설정 */
+		padding: 4px 8px; /* 모바일에서 토글 버튼의 내부 패딩 설정 */
+	}
+	.sidebar .menu {
+		margin-top: 20px; /* 모바일에서 메뉴 상단에 여백 설정 */
+	}
+	.sidebar .menu ul li a i, .sidebar .menu ul li a span {
+		margin-right: 0; /* 모바일에서 아이콘과 텍스트 사이의 여백 제거 */
+	}
+	.main-content .header h1 {
+		font-size: 18px; /* 모바일에서 헤더 제목의 글꼴 크기 설정 */
+	}
+	.main-content .header .view-buttons button, .header button {
+		padding: 5px 8px; /* 모바일에서 버튼의 내부 패딩 설정 */
+		font-size: 12px; /* 모바일에서 버튼의 글꼴 크기 설정 */
+		margin: 0 5px; /* 모바일에서 버튼의 외부 여백 설정 */
+	}
+	.main-content {
+		padding: 10px; /* 모바일에서 메인 컨텐츠의 내부 패딩 설정 */
+		margin-left: 60px; /* 모바일에서 메인 컨텐츠의 왼쪽 여백 설정 */
+	}
+	.main-content.collapsed {
+		margin-left: 50px; /* 모바일에서 사이드바가 축소되었을 때 메인 컨텐츠의 왼쪽 여백 조정 */
+	}
+}
+
+
+.header button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.main-content .calendar-container {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+/* 미디어 쿼리 - 모바일 환경 (화면 너비가 480px 이하) */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 60px;
+        padding: 5px;
+        height: auto;
+        max-height: 100vh;
+    }
+
+    .sidebar.collapsed {
+        width: 50px;
+    }
+
+    .sidebar .toggle-button {
+        top: 10px;
+        left: 10px;
+        padding: 4px 8px;
+    }
+
+    .sidebar .menu {
+        margin-top: 20px;
+    }
+
+    .main-content .header h1 {
+        font-size: 18px;
+    }
+
+    .main-content .header .view-buttons button,
+    .header button {
+        padding: 5px 8px;
+        font-size: 12px;
+        margin: 0 5px;
+    }
+
+    .main-content {
+        padding: 10px;
+        margin-left: 60px;
+    }
+
+    .main-content.collapsed {
+        margin-left: 50px;
+    }
+}
+

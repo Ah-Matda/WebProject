@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>login & signUp here!!</title>
+<link rel="stylesheet" href="../css/login_signup_css.css">
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 페이지 로드 시, 로컬 스토리지에 loginUser가 있는지 확인
+            const loggedInUser = localStorage.getItem('loginUser');
+            
+            // loginUser가 있으면 기능 페이지로 자동 리디렉션
+            if (loggedInUser) {
+                window.location.href = "../intro/intro.html"; // dailyList.html이나 원하는 기능 페이지로 이동
+            }
+        });
+    </script>
+</head>
+<body>
+	<div id="container" class="container">
+		<!-- FORM SECTION -->
+		<div class="row">
+			<!-- SIGN UP -->
+			<div class="col align-items-center flex-col sign-up">
+				<form id="signupForm">
+					<div class="form-wrapper align-items-center">
+						<div class="form sign-up">
+							<div class="form-group">
+								<label for="name">이름:</label> <input type="text"
+									class="form-control" id="name" name="name" required
+									minlength="3" maxlength="100" placeholder="Username">
+							</div>
+							<div class="form-group">
+								<label for="email">이메일(아이디):</label> <input type="email"
+									class="form-control" id="email" name="email" required
+									placeholder="email@address.com">
+							</div>
+							<div class="form-group">
+								<label for="password">비밀번호:</label> <input type="password"
+									class="form-control" id="password" name="password" required
+									placeholder="영문 + 특수문자 + 숫자 포함 최소 8자리"
+									pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
+									title="영문 + 특수문자 + 숫자 포함 최소 8자리">
+							</div>
+							<div class="form-group">
+								<label for="password2">비밀번호 확인:</label> <input type="password"
+									class="form-control" id="password2" name="password2" required
+									placeholder="비밀번호 확인"
+									pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$">
+							</div>
+							<div class="form-group">
+								<label for="birth">생일(1900~2023):</label> <input type="date"
+									class="form-control" id="birth" name="birth" required
+									min="1900-01-01" max="2023-12-31">
+							</div>
+							<div class="form-group">
+								<label for="phone">전화번호:</label> <input type="tel"
+									class="form-control" id="phone" name="phone" required
+									placeholder="010-1234-1234"
+									pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+							</div>
+							<button type="submit" class="btn btn-primary btn-block"
+								id="signupbutton">계정 생성</button>
+							<p>
+								<span> 이미 계정이 존재하나요? </span> <b onclick="toggle()"
+									class="pointer"> 로그인 </b>
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- END SIGN UP -->
+
+			<!-- HTML 코드 (로그인 부분) -->
+			<div class="col align-items-center flex-col sign-in">
+				<div class="form-wrapper align-items-center">
+					<form id="signinForm" class="form sign-in">
+						<div class="form-group">
+							<label for="username">이메일:</label> <input type="text"
+								id="username" name="username" class="form-control"
+								placeholder="Username" required>
+						</div>
+						<div class="form-group">
+							<label for="signin-password">비밀번호:</label> <input type="password"
+								id="signin-password" name="password" class="form-control"
+								placeholder="Password" required>
+						</div>
+						<button type="submit" id="loginbutton"
+							class="btn btn-primary btn-block">로그인</button>
+						<p>
+							<span> 계정이 존재하지 않으신가요? </span> <b onclick="toggle()"
+								class="pointer"> 회원가입 </b>
+						</p>
+					</form>
+				</div>
+			</div>
+
+
+
+		</div>
+		<!-- END FORM SECTION -->
+		<!-- CONTENT SECTION -->
+		<div class="row content-row">
+			<!-- SIGN IN CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="text sign-in">
+					<h2>Welcome</h2>
+
+				</div>
+				<div class="img sign-in"></div>
+			</div>
+			<!-- END SIGN IN CONTENT -->
+			<!-- SIGN UP CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="img sign-up"></div>
+				<div class="text sign-up">
+					<h2>Join with us</h2>
+
+				</div>
+			</div>
+			<!-- END SIGN UP CONTENT -->
+		</div>
+		<!-- END CONTENT SECTION -->
+	</div>
+	<script src="../js/login_out_js.js"></script>
+</body>
+</html>
